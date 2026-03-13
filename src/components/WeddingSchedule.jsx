@@ -28,7 +28,7 @@ export const WeddingSchedule =() => {
       icon: <LocalCafeIcon />,
     },
     {
-      time: '5:30 PM',
+      time: '5:50 PM',
       title: 'Reception & Dinner',
       description: 'Celebrate with dinner and toasts',
       icon: <RestaurantIcon />,

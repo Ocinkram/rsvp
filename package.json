@@ -17,20 +17,28 @@
     "@fontsource/great-vibes": "^5.2.8",
     "@mui/icons-material": "^7.3.8",
     "@mui/material": "^7.3.8",
+    "aws-amplify": "^6.18.0",
     "motion": "^12.34.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.71.2"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.23.0",
+    "@aws-amplify/backend-cli": "^1.8.3",
     "@eslint/js": "^9.39.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^5.1.1",
+    "aws-cdk-lib": "^2.244.0",
+    "constructs": "^10.6.0",
+    "esbuild": "^0.28.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3",
     "vite": "^7.3.1"
   },
   "engines": {

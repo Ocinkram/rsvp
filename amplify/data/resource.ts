@@ -12,6 +12,9 @@ const schema = a.schema({
     .model({
       userId: a.id().required(),
     })
+    .secondaryIndexes((index) => [
+      index("userId")
+    ])
     .authorization((allow) => [allow.guest()]),
 
   Responses: a

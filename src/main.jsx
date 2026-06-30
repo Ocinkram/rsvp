@@ -4,16 +4,17 @@ import { Index } from "./Index.jsx"
 import "./main.css"
 import { Amplify } from "aws-amplify"
 
-// Try to load Amplify config safely (won't crash if missing in production)
-let outputs = null
+// SAFE: prevent Vite from trying to resolve missing file at build time
+let outputs
 
-try {
-  outputs = (await import("../amplify_outputs.json")).default
-} catch (err) {
+if (import.meta.env.VITE_USE_AMPLIFY === "true") {
+  outputs = await import("../amplify_outputs.json")
+    .then((m) => m.default)
+    .catch(() => null)
+} else {
   outputs = null
 }
 
-// Only configure Amplify if outputs exist
 if (outputs) {
   Amplify.configure(outputs)
 }

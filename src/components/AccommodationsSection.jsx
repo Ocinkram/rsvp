@@ -25,22 +25,50 @@ export const AccommodationsSection =() => {
   ];
 
   return (
-    <Box maxWidth="4xl" mx="auto" display="flex" flexDirection="column" gap={8}>
-      {/* Hotels Section */}
-      <Box display="flex" flexDirection="column" gap={4}>
+     <Box
+      sx={{
+        maxWidth: 1100,
+        mx: "auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        py: 6,
+        px: 2,
+      }}
+    >
+      {/* ================= HOTELS ================= */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+
         <Stack direction="row" alignItems="center" gap={1}>
-          <HotelIcon sx={{ color: '#869478', fontSize: 20 }} />
-          <Typography variant="h6" sx={{ color: '#869478' }}>
+          <HotelIcon sx={{ color: "#869478", fontSize: 22 }} />
+          <Typography variant="h6" sx={{ color: "#869478", fontWeight: 600 }}>
             Recommended Hotels
           </Typography>
         </Stack>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {hotels.map((hotel, index) => (
             <Grid item xs={12} md={6} key={index}>
-              <Card sx={{ p: 2 }}>
-                <CardContent sx={{ p: 0 }}>
-                  <Typography variant="subtitle1" fontWeight={500} mb={1}>
+              <Card
+                sx={{
+                  p: 2,
+                  borderRadius: 3,
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                  height: "100%",
+                  transition: "0.2s",
+                  "&:hover": {
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 12px 30px rgba(0,0,0,0.1)",
+                  },
+                }}
+              >
+                <CardContent sx={{ p: 1.5 }}>
+
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight={600}
+                    sx={{ mb: 1 }}
+                  >
                     {hotel.name}
                   </Typography>
 
@@ -48,44 +76,59 @@ export const AccommodationsSection =() => {
                     <Chip
                       label="Guest Block Available"
                       size="small"
-                      sx={{ backgroundColor: '#869478', color: '#E4E2E0', mb: 1 }}
+                      sx={{
+                        backgroundColor: "#869478",
+                        color: "#fff",
+                        mb: 1.5,
+                        fontWeight: 500,
+                      }}
                     />
                   )}
 
-                  <Stack direction="row" alignItems="center" gap={0.5} mt={1}>
-                    <LocationOn sx={{ fontSize: 16, color: 'gray' }} />
+                  <Stack direction="row" alignItems="center" gap={0.5} mb={0.5}>
+                    <LocationOn sx={{ fontSize: 16, color: "gray" }} />
                     <Typography variant="body2" color="text.secondary">
                       {hotel.distance}
                     </Typography>
                   </Stack>
 
-                  <Typography variant="body2" color="text.secondary" mt={0.5}>
+                  <Typography variant="body2" color="text.secondary">
                     Phone: {hotel.phone}
                   </Typography>
+
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
 
-        <Typography variant="body2" color="text.secondary" fontStyle="italic">
-          Mention "Smith-Johnson Wedding" when booking to access our guest block rates.
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.secondary",
+            fontStyle: "italic",
+            textAlign: "center",
+          }}
+        >
+          Mention "Smith-Johnson Wedding" when booking to access guest block rates.
         </Typography>
       </Box>
 
-      {/* Travel Info Section */}
-      <Box display="flex" flexDirection="column" gap={4}>
+      {/* ================= TRAVEL ================= */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+
         <Stack direction="row" alignItems="center" gap={1}>
-          <DirectionsCar sx={{ color: '#869478', fontSize: 20 }} />
-          <Typography variant="h6" sx={{ color: '#869478' }}>
+          <DirectionsCar sx={{ color: "#869478", fontSize: 22 }} />
+          <Typography variant="h6" sx={{ color: "#869478", fontWeight: 600 }}>
             Getting There
           </Typography>
         </Stack>
 
-        <Stack spacing={2}>
-          <Card sx={{ p: 2 }}>
-            <CardContent sx={{ p: 0 }}>
-              <Typography variant="subtitle1" fontWeight={500} mb={1}>
+        <Stack spacing={3}>
+
+          <Card sx={cardStyle}>
+            <CardContent>
+              <Typography variant="subtitle1" fontWeight={600} mb={1}>
                 By Car
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -94,34 +137,43 @@ export const AccommodationsSection =() => {
             </CardContent>
           </Card>
 
-          <Card sx={{ p: 2 }}>
-            <CardContent sx={{ p: 0 }}>
+          <Card sx={cardStyle}>
+            <CardContent>
+
               <Stack direction="row" alignItems="center" gap={1} mb={1}>
-                <DirectionsBus sx={{ fontSize: 16, color: 'gray' }} />
-                <Typography variant="subtitle1" fontWeight={500}>
+                <DirectionsBus sx={{ fontSize: 18, color: "gray" }} />
+                <Typography variant="subtitle1" fontWeight={600}>
                   Shuttle Service
                 </Typography>
               </Stack>
+
               <Typography variant="body2" color="text.secondary">
-                Complimentary shuttle service will run between The Grand Hotel and Riverside Inn to the venue.
-                Pickups begin at 2:30 PM, with returns available until midnight.
+                Complimentary shuttle service runs between hotels and the venue.
+                Pickups start at 2:30 PM and return until midnight.
+              </Typography>
+
+            </CardContent>
+          </Card>
+
+          <Card sx={cardStyle}>
+            <CardContent>
+              <Typography variant="subtitle1" fontWeight={600} mb={1}>
+                From Airport
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                The venue is ~25 minutes from City International Airport.
+                Rideshare and taxis are readily available.
               </Typography>
             </CardContent>
           </Card>
 
-          <Card sx={{ p: 2 }}>
-            <CardContent sx={{ p: 0 }}>
-              <Typography variant="subtitle1" fontWeight={500} mb={1}>
-                From Airport
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                The venue is approximately 25 minutes from City International Airport.
-                Rideshare and taxi services are readily available.
-              </Typography>
-            </CardContent>
-          </Card>
         </Stack>
       </Box>
     </Box>
   );
+}
+
+const cardStyle = {
+  borderRadius: 3,
+  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
 }

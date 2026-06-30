@@ -1,181 +1,300 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
-  Container,
-  Box,
-  Stack,
-  TextField,
-  Typography,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  FormControl,
-  FormLabel,
-  Select,
-  MenuItem,
-  Button,
-  Alert,
+    Container,
+    Box,
+    Stack,
+    TextField,
+    Typography,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+    FormControl,
+    FormLabel,
+    Select,
+    MenuItem,
+    Button,
+    Alert,
+    Paper,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { createResponse, readResponse, updateResponse } from '../functions';
 
-export const RSVPForm =() => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export const RSVPForm = () => {
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [loader, setLoader] = useState(false)
+    const [hasPreviousData, setHasPreviousData] = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+        control,
+    } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('RSVP Data:', data);
-    setIsSubmitted(true);
-    reset();
+    const userId = '123456sfdfdgfdgdfgds7fds89'
 
-    setTimeout(() => setIsSubmitted(false), 5000);
-  };
+    const onSubmit = async (data) => {
+        if (hasPreviousData) {
+            const res = await updateResponse({
+                userId,
+                name: data.name,
+                willAttend: !!data.willAttend,
+                guestNumber: Number(data.guestNumber),
+                message: data.message,
+            });
 
-  if (isSubmitted) {
+            if (res) {
+                setHasPreviousData(true)
+                setIsSubmitted(true)
+            }
+        } else {
+            const res = await createResponse({
+                userId,
+                name: data.name,
+                willAttend: !!data.willAttend,
+                guestNumber: Number(data.guestNumber),
+                message: data.message,
+            });
+            if (res) {
+                setHasPreviousData(true)
+                setIsSubmitted(true)
+            }
+        }
+    };
+
+    const fetchResponse = async () => {
+        const user = await readResponse({ userId })
+        if (!user) return
+        reset({
+            name: user.name,
+            willAttend: !!user.willAttend,
+            guestNumber: user.guestNumber,
+            message: user.message,
+        });
+        setHasPreviousData(true)
+        setIsSubmitted(true)
+    };
+
+
+    useEffect(() => {
+        fetchResponse()
+    }, [])
+
+    if (isSubmitted) {
+        return (
+            <Container maxWidth="sm">
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="70vh"
+                >
+                    <Paper
+                        elevation={3}
+                        sx={{
+                            p: 5,
+                            width: "100%",
+                            textAlign: "center",
+                            borderRadius: 3,
+                        }}
+                    >
+                        <Stack spacing={3} alignItems="center">
+                            <CheckCircleIcon
+                                sx={{
+                                    fontSize: 72,
+                                    color: "#869478",
+                                }}
+                            />
+
+                            <Typography
+                                variant="h4"
+                                fontWeight={600}
+                                color="#869478"
+                            >
+                                Thank You!
+                            </Typography>
+
+                            <Typography variant="body1" color="text.secondary">
+                                Your RSVP has been received. We're so excited to
+                                celebrate with you!
+                            </Typography>
+
+                            <Alert
+                                severity="success"
+                                sx={{
+                                    width: "100%",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                RSVP submitted successfully.
+                            </Alert>
+
+                            <Stack
+                                direction={{ xs: "column", sm: "row" }}
+                                spacing={2}
+                                width="100%"
+                            >
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={() => setIsSubmitted(false)}
+                                    sx={{
+                                        borderColor: "#869478",
+                                        color: "#869478",
+                                        "&:hover": {
+                                            borderColor: "#6f7c61",
+                                            bgcolor: "#f6f7f4",
+                                        },
+                                    }}
+                                >
+                                    Edit RSVP
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Paper>
+                </Box>
+            </Container>
+        );
+    }
+
     return (
-      <Container maxWidth="sm">
-        <Stack
-          spacing={3}
-          alignItems="center"
-          justifyContent="center"
-          py={8}
-          textAlign="center"
-        >
-          <CheckCircleIcon sx={{ fontSize: 64, color: '#869478' }} />
-
-          <Typography variant="h4" sx={{ color: '#869478' }}>
-            Thank You!
-          </Typography>
-
-          <Typography variant="body1" maxWidth={400}>
-            Your RSVP has been received. We can't wait to celebrate with you!
-          </Typography>
-
-          <Alert severity="success" sx={{ width: '100%' }}>
-            RSVP submitted successfully
-          </Alert>
-        </Stack>
-      </Container>
-    );
-  }
-
-  return (
-    <Container maxWidth="md">
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ mt: 4 }}
-      >
-        <Stack spacing={4}>
-          {/* Name */}
-          <TextField
-            label="Full Name *"
-            placeholder="John Doe"
-            fullWidth
-            {...register('name', { required: 'Name is required' })}
-            error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-
-          {/* Email */}
-          <TextField
-            label="Email *"
-            type="email"
-            placeholder="john@example.com"
-            fullWidth
-            {...register('email', { required: 'Email is required' })}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-
-          {/* Attending */}
-          <FormControl error={!!errors.attending}>
-            <FormLabel>Will you be attending? *</FormLabel>
-            <RadioGroup row defaultValue="yes">
-              <FormControlLabel
-                value="yes"
-                control={<Radio {...register('attending', { required: true })} />}
-                label="Joyfully Accept"
-              />
-              <FormControlLabel
-                value="no"
-                control={<Radio {...register('attending', { required: true })} />}
-                label="Regretfully Decline"
-              />
-            </RadioGroup>
-          </FormControl>
-
-          {/* Number of Guests */}
-          <TextField
-            label="Number of Guests *"
-            type="number"
-            inputProps={{ min: 1, max: 10 }}
-            placeholder="2"
-            fullWidth
-            {...register('numberOfGuests', {
-              required: 'Number of guests is required',
-            })}
-            error={!!errors.numberOfGuests}
-            helperText={errors.numberOfGuests?.message}
-          />
-
-          {/* Meal Preference */}
-          <FormControl fullWidth>
-            <FormLabel>Meal Preference</FormLabel>
-            <Select
-              defaultValue=""
-              {...register('mealPreference')}
+        <Container maxWidth="md">
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    py: 5,
+                }}
             >
-              <MenuItem value="">Select a preference</MenuItem>
-              <MenuItem value="chicken">Chicken</MenuItem>
-              <MenuItem value="beef">Beef</MenuItem>
-              <MenuItem value="fish">Fish</MenuItem>
-              <MenuItem value="vegetarian">Vegetarian</MenuItem>
-              <MenuItem value="vegan">Vegan</MenuItem>
-            </Select>
-          </FormControl>
+                <Paper
+                    elevation={2}
+                    sx={{
+                        width: "100%",
+                        maxWidth: 600,
+                        p: { xs: 3, sm: 4 },
+                        borderRadius: 3,
+                    }}
+                >
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <Stack spacing={3}>
+                            {/* Name */}
+                            <Stack spacing={1}>
+                                <Typography variant="caption">
+                                    Full Name *
+                                </Typography>
 
-          {/* Dietary Restrictions */}
-          <TextField
-            label="Dietary Restrictions"
-            placeholder="Any allergies or dietary needs?"
-            fullWidth
-            {...register('dietaryRestrictions')}
-          />
+                                <TextField
+                                    fullWidth
+                                    {...register("name", {
+                                        required: "Name is required",
+                                    })}
+                                    error={!!errors.name}
+                                    helperText={errors.name?.message}
+                                />
+                            </Stack>
 
-          {/* Message */}
-          <TextField
-            label="Message for the Couple"
-            placeholder="Share your well wishes..."
-            multiline
-            rows={4}
-            fullWidth
-            {...register('message')}
-          />
+                            <Controller
+                                name="willAttend"
+                                control={control}
+                                rules={{
+                                    validate: value =>
+                                        value !== undefined || "Please select an option",
+                                }}
+                                render={({ field }) => (
+                                    <RadioGroup
+                                        row
+                                        value={String(field.value)}
+                                        onChange={(e) => field.onChange(e.target.value === "true")}
+                                    >
+                                        <FormControlLabel
+                                            value="true"
+                                            control={<Radio />}
+                                            label="Yes"
+                                        />
 
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            fullWidth
-            sx={{
-              bgcolor: '#869478',
-              color: '#E4E2E0',
-              '&:hover': {
-                bgcolor: '#6f7c61',
-              },
-            }}
-          >
-            Submit RSVP
-          </Button>
-        </Stack>
-      </Box>
-    </Container>
-  );
+                                        <FormControlLabel
+                                            value="false"
+                                            control={<Radio />}
+                                            label="No"
+                                        />
+                                    </RadioGroup>
+                                )}
+                            />
+
+                            {/* Number of Guests */}
+                            <Stack spacing={1}>
+                                <Typography variant="caption">
+                                    Number of Attendees *
+                                </Typography>
+
+                                <TextField
+                                    type="text"
+                                    inputProps={{
+                                        inputMode: "numeric",
+                                        maxLength: 1,
+                                    }}
+                                    fullWidth
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+
+                                        // allow only 1–9 or empty (so user can delete)
+                                        if (/^[1-9]?$/.test(value)) {
+                                            setValue("guestNumber", value, {
+                                                shouldValidate: true,
+                                            });
+                                        }
+                                    }}
+                                    {...register("guestNumber", {
+                                        required: "Number is required",
+                                        validate: (value) =>
+                                            /^[1-9]$/.test(value) || "Must be between 1 and 9",
+                                    })}
+                                    error={!!errors.guestNumber}
+                                    helperText={errors.guestNumber?.message}
+                                />
+                            </Stack>
+
+                            {/* Message */}
+                            <Stack spacing={1}>
+                                <Typography variant="caption">
+                                    Message for the Couple
+                                </Typography>
+
+                                <TextField
+                                    placeholder="Share your well wishes..."
+                                    multiline
+                                    rows={4}
+                                    fullWidth
+                                    {...register("message")}
+                                />
+                            </Stack>
+
+                            {/* Submit Button */}
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                size="large"
+                                fullWidth
+                                sx={{
+                                    mt: 1,
+                                    bgcolor: "#869478",
+                                    color: "#E4E2E0",
+                                    "&:hover": {
+                                        bgcolor: "#6f7c61",
+                                    },
+                                }}
+                            >
+                                Submit RSVP
+                            </Button>
+                        </Stack>
+                    </Box>
+                </Paper>
+            </Box>
+        </Container>
+    );
 }

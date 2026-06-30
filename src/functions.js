@@ -1,14 +1,20 @@
 import { generateClient } from "aws-amplify/data";
 
-export const createUser = () => {
+export const createUser = ({ name }) => {
     const client = generateClient()
 
     client.models.Users.create({
-        name: "Nico Mark Laguitan",
+        name,
     });
 }
 
-export const createUserLog = ({userId}) => {
+export const readUser = ({ id }) => {
+    const client = generateClient()
+
+    client.models.Users.get({ id })
+}
+
+export const createUserLog = ({ userId }) => {
     const client = generateClient()
 
     client.models.UserLogs.create({
@@ -16,22 +22,26 @@ export const createUserLog = ({userId}) => {
     });
 }
 
-export const createResponse = ({userId, name, willAttend, guestNumber, message}) => {
-    const client = generateClient()
-
-    client.models.Response.create({
+export const createResponse = async ({ userId, name, willAttend, guestNumber, message, }) => {
+    const client = generateClient();
+    return await client.models.Responses.create({
         userId,
         name,
         willAttend,
         guestNumber,
-        message
+        message,
     });
+};
+
+export const readResponse = async ({ userId }) => {
+    const client = generateClient()
+    const res =  await client.models.Responses.get({ userId });
+    return res.data
 }
 
-export const updateResponse = ({userId, name, willAttend, guestNumber, message}) => {
+export const updateResponse = async ({ userId, name, willAttend, guestNumber, message }) => {
     const client = generateClient()
-
-    client.models.Response.update({
+    return await client.models.Responses.update({
         userId,
         name,
         willAttend,

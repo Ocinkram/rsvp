@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-    Box,
-    Typography,
-    ImageList,
-    ImageListItem,
-    Container,
-} from '@mui/material';
+import { useTheme, useMediaQuery, Box, ImageList, ImageListItem, Container } from '@mui/material';
+import { SectionHeader } from './ui/SectionHeader';
 
 const images = [
     'https://images.unsplash.com/photo-1768468105374-08185b172342?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyb21hbnRpYyUyMGNvdXBsZSUyMGVuZ2FnZW1lbnQlMjBvdXRkb29yfGVufDF8fHx8MTc3MjAyMjA1MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
@@ -17,23 +11,22 @@ const images = [
 ];
 
 export const PhotoGallery = ({ title = 'our journey together' }) => {
+    const theme = useTheme();
+    const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+    const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+    const cols = isMdUp ? 3 : isSmUp ? 2 : 1;
+
     return (
-        <Box sx={{ py: 4 }}>
+        <Box sx={{ py: { xs: 3, md: 4 } }}>
             {title && (
-                <Typography
-                    variant="h4"
-                    align="center"
-                    sx={{ color: '#869478', mb: 4 }}
-                >
-                    {title}
-                </Typography>
+                <SectionHeader title={title} compact />
             )}
 
             <Container maxWidth="lg">
                 <ImageList
                     variant="masonry"
-                    cols={3}
-                    gap={16}
+                    cols={cols}
+                    gap={isMdUp ? 16 : 8}
                 >
                     {images.map((image, index) => (
                         <ImageListItem

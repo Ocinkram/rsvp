@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-    Container,
     Box,
     Stack,
     TextField,
@@ -9,16 +8,13 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
-    FormControl,
-    FormLabel,
-    Select,
-    MenuItem,
     Button,
     Alert,
     Paper,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { createResponse, readResponse, updateResponse } from '../functions';
+import { sectionTitleSx } from './ui/headingStyles';
 
 export const RSVPForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -84,217 +80,204 @@ export const RSVPForm = () => {
 
     if (isSubmitted) {
         return (
-            <Container maxWidth="sm">
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    minHeight="70vh"
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="50vh"
+            >
+                <Paper
+                    elevation={3}
+                    sx={{
+                        p: { xs: 3, sm: 5 },
+                        width: "100%",
+                        maxWidth: 480,
+                        textAlign: "center",
+                    }}
                 >
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            p: 5,
-                            width: "100%",
-                            textAlign: "center",
-                            borderRadius: 3,
-                        }}
-                    >
-                        <Stack spacing={3} alignItems="center">
-                            <CheckCircleIcon
-                                sx={{
-                                    fontSize: 72,
-                                    color: "#869478",
-                                }}
-                            />
+                    <Stack spacing={3} alignItems="center">
+                        <CheckCircleIcon
+                            sx={{
+                                fontSize: { xs: 56, md: 72 },
+                                color: "primary.main",
+                            }}
+                        />
 
-                            <Typography
-                                variant="h4"
-                                fontWeight={600}
-                                color="#869478"
-                            >
+                            <Typography sx={sectionTitleSx}>
                                 Thank You!
                             </Typography>
 
-                            <Typography variant="body1" color="text.secondary">
-                                Your RSVP has been received. We're so excited to
-                                celebrate with you!
-                            </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            Your RSVP has been received. We're so excited to
+                            celebrate with you!
+                        </Typography>
 
-                            <Alert
-                                severity="success"
+                        <Alert
+                            severity="success"
+                            sx={{
+                                width: "100%",
+                                justifyContent: "center",
+                            }}
+                        >
+                            RSVP submitted successfully.
+                        </Alert>
+
+                        <Stack
+                            direction={{ xs: "column", sm: "row" }}
+                            spacing={2}
+                            width="100%"
+                        >
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                onClick={() => setIsSubmitted(false)}
                                 sx={{
-                                    width: "100%",
-                                    justifyContent: "center",
+                                    "&:hover": {
+                                        bgcolor: "#f6f7f4",
+                                    },
                                 }}
                             >
-                                RSVP submitted successfully.
-                            </Alert>
-
-                            <Stack
-                                direction={{ xs: "column", sm: "row" }}
-                                spacing={2}
-                                width="100%"
-                            >
-                                <Button
-                                    fullWidth
-                                    variant="outlined"
-                                    onClick={() => setIsSubmitted(false)}
-                                    sx={{
-                                        borderColor: "#869478",
-                                        color: "#869478",
-                                        "&:hover": {
-                                            borderColor: "#6f7c61",
-                                            bgcolor: "#f6f7f4",
-                                        },
-                                    }}
-                                >
-                                    Edit RSVP
-                                </Button>
-                            </Stack>
+                                Edit RSVP
+                            </Button>
                         </Stack>
-                    </Paper>
-                </Box>
-            </Container>
+                    </Stack>
+                </Paper>
+            </Box>
         );
     }
 
     return (
-        <Container maxWidth="md">
-            <Box
+        <Box
+            sx={{
+                display: "flex",
+                justifyContent: "center",
+                py: { xs: 3, md: 5 },
+            }}
+        >
+            <Paper
+                elevation={2}
                 sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    py: 5,
+                    width: "100%",
+                    maxWidth: 600,
+                    p: { xs: 3, sm: 4 },
                 }}
             >
-                <Paper
-                    elevation={2}
-                    sx={{
-                        width: "100%",
-                        maxWidth: 600,
-                        p: { xs: 3, sm: 4 },
-                        borderRadius: 3,
-                    }}
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit(onSubmit)}
                 >
-                    <Box
-                        component="form"
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <Stack spacing={3}>
-                            {/* Name */}
-                            <Stack spacing={1}>
-                                <Typography variant="caption">
-                                    Full Name *
-                                </Typography>
+                    <Stack spacing={3}>
+                        {/* Name */}
+                        <Stack spacing={1}>
+                            <Typography variant="caption">
+                                Full Name *
+                            </Typography>
 
-                                <TextField
-                                    fullWidth
-                                    {...register("name", {
-                                        required: "Name is required",
-                                    })}
-                                    error={!!errors.name}
-                                    helperText={errors.name?.message}
-                                />
-                            </Stack>
-
-                            <Controller
-                                name="willAttend"
-                                control={control}
-                                rules={{
-                                    validate: value =>
-                                        value !== undefined || "Please select an option",
-                                }}
-                                render={({ field }) => (
-                                    <RadioGroup
-                                        row
-                                        value={String(field.value)}
-                                        onChange={(e) => field.onChange(e.target.value === "true")}
-                                    >
-                                        <FormControlLabel
-                                            value="true"
-                                            control={<Radio />}
-                                            label="Yes"
-                                        />
-
-                                        <FormControlLabel
-                                            value="false"
-                                            control={<Radio />}
-                                            label="No"
-                                        />
-                                    </RadioGroup>
-                                )}
-                            />
-
-                            {/* Number of Guests */}
-                            <Stack spacing={1}>
-                                <Typography variant="caption">
-                                    Number of Attendees *
-                                </Typography>
-
-                                <TextField
-                                    type="text"
-                                    inputProps={{
-                                        inputMode: "numeric",
-                                        maxLength: 1,
-                                    }}
-                                    fullWidth
-                                    onChange={(e) => {
-                                        const value = e.target.value;
-
-                                        // allow only 1–9 or empty (so user can delete)
-                                        if (/^[1-9]?$/.test(value)) {
-                                            setValue("guestNumber", value, {
-                                                shouldValidate: true,
-                                            });
-                                        }
-                                    }}
-                                    {...register("guestNumber", {
-                                        required: "Number is required",
-                                        validate: (value) =>
-                                            /^[1-9]$/.test(value) || "Must be between 1 and 9",
-                                    })}
-                                    error={!!errors.guestNumber}
-                                    helperText={errors.guestNumber?.message}
-                                />
-                            </Stack>
-
-                            {/* Message */}
-                            <Stack spacing={1}>
-                                <Typography variant="caption">
-                                    Message for the Couple
-                                </Typography>
-
-                                <TextField
-                                    placeholder="Share your well wishes..."
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    {...register("message")}
-                                />
-                            </Stack>
-
-                            {/* Submit Button */}
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                size="large"
+                            <TextField
                                 fullWidth
-                                sx={{
-                                    mt: 1,
-                                    bgcolor: "#869478",
-                                    color: "#E4E2E0",
-                                    "&:hover": {
-                                        bgcolor: "#6f7c61",
-                                    },
-                                }}
-                            >
-                                Submit RSVP
-                            </Button>
+                                {...register("name", {
+                                    required: "Name is required",
+                                })}
+                                error={!!errors.name}
+                                helperText={errors.name?.message}
+                            />
                         </Stack>
-                    </Box>
-                </Paper>
-            </Box>
-        </Container>
+
+                        <Controller
+                            name="willAttend"
+                            control={control}
+                            rules={{
+                                validate: value =>
+                                    value !== undefined || "Please select an option",
+                            }}
+                            render={({ field }) => (
+                                <RadioGroup
+                                    value={String(field.value)}
+                                    onChange={(e) => field.onChange(e.target.value === "true")}
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: { xs: 'column', sm: 'row' },
+                                        gap: { xs: 0, sm: 2 },
+                                    }}
+                                >
+                                    <FormControlLabel
+                                        value="true"
+                                        control={<Radio color="primary" />}
+                                        label="Yes"
+                                    />
+
+                                    <FormControlLabel
+                                        value="false"
+                                        control={<Radio color="primary" />}
+                                        label="No"
+                                    />
+                                </RadioGroup>
+                            )}
+                        />
+
+                        {/* Number of Guests */}
+                        <Stack spacing={1}>
+                            <Typography variant="caption">
+                                Number of Attendees *
+                            </Typography>
+
+                            <TextField
+                                type="text"
+                                inputProps={{
+                                    inputMode: "numeric",
+                                    maxLength: 1,
+                                }}
+                                fullWidth
+                                onChange={(e) => {
+                                    const value = e.target.value;
+
+                                    // allow only 1–9 or empty (so user can delete)
+                                    if (/^[1-9]?$/.test(value)) {
+                                        setValue("guestNumber", value, {
+                                            shouldValidate: true,
+                                        });
+                                    }
+                                }}
+                                {...register("guestNumber", {
+                                    required: "Number is required",
+                                    validate: (value) =>
+                                        /^[1-9]$/.test(value) || "Must be between 1 and 9",
+                                })}
+                                error={!!errors.guestNumber}
+                                helperText={errors.guestNumber?.message}
+                            />
+                        </Stack>
+
+                        {/* Message */}
+                        <Stack spacing={1}>
+                            <Typography variant="caption">
+                                Message for the Couple
+                            </Typography>
+
+                            <TextField
+                                placeholder="Share your well wishes..."
+                                multiline
+                                rows={4}
+                                fullWidth
+                                {...register("message")}
+                            />
+                        </Stack>
+
+                        {/* Submit Button */}
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            fullWidth
+                            sx={{ mt: 1 }}
+                        >
+                            Submit RSVP
+                        </Button>
+                    </Stack>
+                </Box>
+            </Paper>
+        </Box>
     );
 }

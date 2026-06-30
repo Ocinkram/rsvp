@@ -4,7 +4,11 @@
   box-sizing: border-box;
 }
 
-.cormorant {
-  font-family: 'Cormorant Garamond', serif;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}

@@ -53,26 +53,32 @@ export const WeddingSchedule =() => {
         {scheduleItems.map((item, index) => (
           <Stack
             key={index}
-            direction="row"
+            direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
-            alignItems="flex-start"
+            alignItems={{ xs: 'center', sm: 'flex-start' }}
+            textAlign={{ xs: 'center', sm: 'left' }}
           >
             <Avatar
               sx={{
                 width: 48,
                 height: 48,
-                bgcolor: '#869478',
-                color: '#E4E2E0',
+                bgcolor: 'primary.main',
+                color: 'primary.contrastText',
               }}
             >
               {item.icon}
             </Avatar>
 
             <Box flex={1}>
-              <Stack direction="row" spacing={2} alignItems="baseline">
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={{ xs: 0.5, sm: 2 }}
+                alignItems={{ xs: 'center', sm: 'baseline' }}
+              >
                 <Typography
                   variant="h6"
-                  sx={{ color: '#869478', fontWeight: 500 }}
+                  color="primary"
+                  sx={{ fontWeight: 500 }}
                 >
                   {item.time}
                 </Typography>

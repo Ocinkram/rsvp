@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hotel as HotelIcon, LocationOn, DirectionsCar, DirectionsBus } from '@mui/icons-material';
 import { Card, CardContent, Typography, Box, Grid, Chip, Stack } from '@mui/material';
+import { SubsectionHeader } from './ui/SubsectionHeader';
 
 export const AccommodationsSection =() => {
   const hotels = [
@@ -31,20 +32,20 @@ export const AccommodationsSection =() => {
         mx: "auto",
         display: "flex",
         flexDirection: "column",
-        gap: 10,
-        py: 6,
-        px: 2,
+        gap: { xs: 6, md: 10 },
+        py: { xs: 4, md: 6 },
+        px: { xs: 0, sm: 2 },
       }}
     >
       {/* ================= HOTELS ================= */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
 
-        <Stack direction="row" alignItems="center" gap={1}>
-          <HotelIcon sx={{ color: "#869478", fontSize: 22 }} />
-          <Typography variant="h6" sx={{ color: "#869478", fontWeight: 600 }}>
-            Recommended Hotels
-          </Typography>
-        </Stack>
+        <SubsectionHeader
+          title="Recommended Hotels"
+          align="left"
+          icon={<HotelIcon sx={{ color: 'primary.main', fontSize: 22 }} />}
+          sx={{ mb: 0 }}
+        />
 
         <Grid container spacing={3}>
           {hotels.map((hotel, index) => (
@@ -52,8 +53,6 @@ export const AccommodationsSection =() => {
               <Card
                 sx={{
                   p: 2,
-                  borderRadius: 3,
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
                   height: "100%",
                   transition: "0.2s",
                   "&:hover": {
@@ -77,8 +76,8 @@ export const AccommodationsSection =() => {
                       label="Guest Block Available"
                       size="small"
                       sx={{
-                        backgroundColor: "#869478",
-                        color: "#fff",
+                        bgcolor: 'primary.main',
+                        color: '#fff',
                         mb: 1.5,
                         fontWeight: 500,
                       }}
@@ -117,16 +116,16 @@ export const AccommodationsSection =() => {
       {/* ================= TRAVEL ================= */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
 
-        <Stack direction="row" alignItems="center" gap={1}>
-          <DirectionsCar sx={{ color: "#869478", fontSize: 22 }} />
-          <Typography variant="h6" sx={{ color: "#869478", fontWeight: 600 }}>
-            Getting There
-          </Typography>
-        </Stack>
+        <SubsectionHeader
+          title="Getting There"
+          align="left"
+          icon={<DirectionsCar sx={{ color: 'primary.main', fontSize: 22 }} />}
+          sx={{ mb: 0 }}
+        />
 
         <Stack spacing={3}>
 
-          <Card sx={cardStyle}>
+          <Card>
             <CardContent>
               <Typography variant="subtitle1" fontWeight={600} mb={1}>
                 By Car
@@ -137,7 +136,7 @@ export const AccommodationsSection =() => {
             </CardContent>
           </Card>
 
-          <Card sx={cardStyle}>
+          <Card>
             <CardContent>
 
               <Stack direction="row" alignItems="center" gap={1} mb={1}>
@@ -155,7 +154,7 @@ export const AccommodationsSection =() => {
             </CardContent>
           </Card>
 
-          <Card sx={cardStyle}>
+          <Card>
             <CardContent>
               <Typography variant="subtitle1" fontWeight={600} mb={1}>
                 From Airport
@@ -171,9 +170,4 @@ export const AccommodationsSection =() => {
       </Box>
     </Box>
   );
-}
-
-const cardStyle = {
-  borderRadius: 3,
-  boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
 }

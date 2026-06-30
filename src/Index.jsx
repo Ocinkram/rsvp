@@ -3,7 +3,7 @@ import { Core } from "./Core"
 
 export const Index =() => {
     return (
-        <Box height='100vh'>
+        <Box minHeight='100vh'>
             <Core/>
         </Box>
     )

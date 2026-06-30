@@ -1,15 +1,14 @@
 import React from 'react';
 import {
   Container,
-  Box,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Stack,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { SectionHeader } from './ui/SectionHeader';
 
 export const FAQSection = () => {
   const faqs = [
@@ -56,22 +55,19 @@ export const FAQSection = () => {
   ];
 
   return (
-    <Container maxWidth="md" sx={{ py: 6 }}>
-      <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ mb: 4 }}
-      >
-        <HelpOutlineIcon sx={{ color: '#869478' }} />
-        <Typography variant="h4" sx={{ color: '#869478' }}>
-          Frequently Asked Questions
-        </Typography>
-      </Stack>
+    <Container maxWidth="md" sx={{ py: { xs: 4, md: 6 } }}>
+      <SectionHeader
+        title="Frequently Asked Questions"
+        icon={<HelpOutlineIcon sx={{ fontSize: 28, color: 'primary.main' }} />}
+      />
 
       {faqs.map((faq, index) => (
-        <Accordion key={index} disableGutters elevation={1}>
+        <Accordion
+          key={index}
+          disableGutters
+          elevation={1}
+          sx={{ mb: 1, borderRadius: 2, '&:before': { display: 'none' } }}
+        >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography fontWeight={500}>{faq.question}</Typography>
           </AccordionSummary>

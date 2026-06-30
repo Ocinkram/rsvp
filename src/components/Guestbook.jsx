@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Paper, Stack } from '@mui/material';
+import { Box, Button, Typography, Paper, Stack } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { SubsectionHeader } from './ui/SubsectionHeader';
 // import { toast } from 'sonner';
 
 export const Guestbook = () => {
@@ -24,29 +25,25 @@ export const Guestbook = () => {
             mx="auto"
             display="flex"
             flexDirection="column"
-            gap={6}
+            gap={{ xs: 4, md: 6 }}
         >
 
             {/* FORM SECTION */}
             <Paper
                 sx={{
-                    p: 4,
-                    borderRadius: 3,
-                    backgroundColor: "#E4E2E0",
+                    p: { xs: 2.5, sm: 4 },
+                    bgcolor: 'background.default',
                 }}
             >
                 <Stack spacing={3}>
 
-                    {/* Header */}
-                    <Stack direction="row" alignItems="center" gap={1}>
-                        <FavoriteIcon sx={{ color: "#869478" }} />
-                        <Typography
-                            variant="h6"
-                            sx={{ color: "#869478", fontWeight: 600 }}
-                        >
-                            Leave a Message
-                        </Typography>
-                    </Stack>
+                    <SubsectionHeader
+                        title="Leave a Message"
+                        variant="subsection"
+                        align="left"
+                        icon={<FavoriteIcon sx={{ color: 'primary.main' }} />}
+                        sx={{ mb: 0 }}
+                    />
 
                     {/* Form */}
                     <Box
@@ -61,16 +58,8 @@ export const Guestbook = () => {
                         <Button
                             type="submit"
                             variant="contained"
-                            sx={{
-                                backgroundColor: "#869478",
-                                color: "#E4E2E0",
-                                borderRadius: 2,
-                                py: 1.2,
-                                fontWeight: 500,
-                                "&:hover": {
-                                    backgroundColor: "#6f7b66",
-                                },
-                            }}
+                            color="primary"
+                            sx={{ py: 1.2, fontWeight: 500 }}
                         >
                             Post Message
                         </Button>
@@ -80,18 +69,11 @@ export const Guestbook = () => {
 
             {/* ENTRIES SECTION */}
             <Box>
-                <Stack spacing={1} mb={2}>
-                    <Typography
-                        variant="h6"
-                        sx={{ color: "#869478", fontWeight: 600 }}
-                    >
-                        Guest Messages
-                    </Typography>
+                <SubsectionHeader title="Guest Messages" align="left" sx={{ mb: 1 }} />
 
-                    <Typography variant="body2" color="text.secondary">
-                        Messages from your loved ones
-                    </Typography>
-                </Stack>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Messages from your loved ones
+                </Typography>
 
                 <Stack spacing={2}>
                     {entries.map((entry, index) => (
@@ -99,31 +81,25 @@ export const Guestbook = () => {
                             key={index}
                             elevation={0}
                             sx={{
-                                p: 3,
-                                borderRadius: 3,
-                                backgroundColor: "#fff",
-                                border: "1px solid rgba(134,148,120,0.2)",
+                                p: { xs: 2, sm: 3 },
+                                bgcolor: 'background.paper',
+                                border: '1px solid rgba(134,148,120,0.2)',
                             }}
                         >
                             <Stack spacing={1.5}>
 
                                 {/* Header row */}
                                 <Stack
-                                    direction="row"
+                                    direction={{ xs: 'column', sm: 'row' }}
                                     justifyContent="space-between"
-                                    alignItems="center"
+                                    alignItems={{ xs: 'flex-start', sm: 'center' }}
+                                    gap={0.5}
                                 >
-                                    <Typography
-                                        fontWeight={600}
-                                        sx={{ color: "#869478" }}
-                                    >
+                                    <Typography fontWeight={600} color="primary">
                                         {entry.name}
                                     </Typography>
 
-                                    <Typography
-                                        variant="caption"
-                                        color="text.secondary"
-                                    >
+                                    <Typography variant="caption" color="text.secondary">
                                         {entry.timestamp.toLocaleDateString()}
                                     </Typography>
                                 </Stack>

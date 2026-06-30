@@ -158,5 +158,5 @@ vite.config.ts.timestamp-*
 
 # amplify
 .amplify
-amplify_outputs*
+# amplify_outputs*
 amplifyconfiguration*

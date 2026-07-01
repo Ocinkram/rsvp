@@ -8,14 +8,17 @@ import outputs from "../amplify_outputs.json";
 import theme from './theme'
 import '@fontsource/great-vibes';
 import '@fontsource/cormorant-garamond';
+import { BrowserRouter } from 'react-router-dom'
+import ReactDOM from "react-dom/client";
 
 Amplify.configure(outputs);
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Index />
     </ThemeProvider>
-  </StrictMode>,
+  </BrowserRouter>
+  ,
 )

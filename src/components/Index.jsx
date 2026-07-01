@@ -17,8 +17,6 @@ import { SubsectionHeader } from './ui/SubsectionHeader';
 export const Components = () => {
     const weddingDate = new Date('2026-08-12T14:00:00');
 
-    console.log(weddingDate)
-
     const galleryImages = [
         'https://images.unsplash.com/photo-1768468105374-08185b172342?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
         'https://images.unsplash.com/photo-1702456473497-2958d73adc80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
@@ -47,39 +45,6 @@ export const Components = () => {
 
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-
-            {/* Navigation */}
-            {/*  <Box
-            component="nav"
-            sx={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 50,
-                backdropFilter: 'blur(6px)',
-                bgcolor: 'rgba(255,255,255,0.8)',
-                borderBottom: '1px solid',
-                borderColor: 'primary.main',
-            }}
-        >
-            <Container maxWidth="lg">
-                <Box display="flex" justifyContent="center" alignItems="center" minHeight={64} flexWrap="wrap" gap={1} py={1}>
-                    <Box display="flex" flexWrap="wrap" gap={{ xs: 1, sm: 2, md: 4 }} justifyContent="center">
-                    {['Home', 'Details', 'Schedule', 'RSVP', 'Story', 'Travel', 'FAQs', 'Guestbook'].map((item) => (
-                        <Button
-                        key={item}
-                        onClick={() => scrollToSection(item.toLowerCase())}
-                        color="primary"
-                        sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
-                        >
-                        {item}
-                        </Button>
-                    ))}
-                    </Box>
-                </Box>
-            </Container>
-        </Box>
- */}
-
             {/* Hero Section */}
             <Box
                 id="home"
@@ -150,18 +115,6 @@ export const Components = () => {
                         <Typography color="primary" sx={{ px: 2, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                             PALAPAG, NORTHERN SAMAR
                         </Typography>
-
-                        {/* <Button
-                    onClick={() => scrollToSection('rsvp')}
-                    variant="contained"
-                    color="primary"
-                    sx={{ fontSize: '1.125rem', px: 4 }}
-                    >
-                    RSVP Now
-                    </Button> */}
-                        {/* <motion.div onClick={() => scrollToSection('rsvp')} animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
-                        <ExpandMore sx={{ fontSize: 40, color: 'primary.main' }} />
-                    </motion.div> */}
                     </Stack>
                 </motion.div>
             </Box>
@@ -176,7 +129,6 @@ export const Components = () => {
                 <Stack gap={4} alignItems='center'>
                     <SectionHeader
                         title="Venue"
-                        tagline="Our Lady of the Assumption Church"
                         sx={{ mb: { xs: 3, md: 4 } }}
                     />
 
@@ -267,17 +219,6 @@ export const Components = () => {
                 </Stack>
             </Section>
 
-            {/* Wedding Schedule */}
-            {/* <Section id="schedule">
-                <Stack gap={4}>
-                    <SectionHeader
-                        title="Schedule"
-                        subtitle="Here's what to expect on our special day"
-                    />
-                    <WeddingSchedule />
-                </Stack>
-            </Section> */}
-
             {/* RSVP */}
             <Section id="rsvp" bgcolor="background.paper">
                 <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
@@ -319,7 +260,7 @@ export const Components = () => {
                             </Card>
                         </Grid>
 
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Card sx={{ p: { xs: 1, sm: 2 } }}>
                                 <CardContent>
                                     <SubsectionHeader title="The Proposal" variant="card" align="left" sx={{ mb: 1 }} />
@@ -330,7 +271,7 @@ export const Components = () => {
                                     </Typography>
                                 </CardContent>
                             </Card>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Box>
 
@@ -402,29 +343,6 @@ export const Components = () => {
                 </Grid>
             </Section>
 
-            {/* Travel & Accommodations */}
-            <Section id="travel" bgcolor="background.paper">
-                <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
-                    <SectionHeader
-                        title="Travel & Accommodations"
-                        subtitle="Everything you need to know about getting here and where to stay"
-                    />
-                </Box>
-                <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
-                    <AccommodationsSection />
-                </Box>
-            </Section>
-
             {/* Dress Code & Registry */}
             <Section bgcolor="#fafafa" maxWidth="md">
                 <SectionHeader title="Wedding Details" compact sx={{ mb: 2 }} />
@@ -469,22 +387,16 @@ export const Components = () => {
             </Section>
 
             {/* FAQs */}
-            {/* <Section id="faqs" bgcolor="background.paper">
+            <Section id="faqs" bgcolor="background.paper">
                 <FAQSection />
-            </Section> */}
-
-            {/* Guestbook */}
-            <Section id="guestbook" bgcolor="background.paper">
-                <SectionHeader title="Guestbook" compact />
-                <Guestbook />
             </Section>
-
+            
             {/* Footer */}
-            {/* <Box py={{ xs: 5, md: 8 }} px={2} textAlign="center">
+            <Box py={{ xs: 5, md: 8 }} px={2} textAlign="center">
                 <Typography variant="body2" color="text.secondary">
-                    &copy; 2026 Kim & Marie. All rights reserved.
+                    &copy; 2026 Kim & Marie Wedd.
                 </Typography>
-            </Box> */}
+            </Box>
         </Box>
     );
 }

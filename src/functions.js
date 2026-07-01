@@ -1,18 +1,18 @@
 import { generateClient } from "aws-amplify/data";
 
-export const createUser = ({ name }) => {
+export const createUser = async ({ name }) => {
     const client = generateClient()
 
-    client.models.Users.create({
+    return await client.models.Users.create({
         name,
     });
 }
 
-export const readUser = ({ id }) => {
-    const client = generateClient()
+export const readUsers = async () => {
+  const client = generateClient();
 
-    client.models.Users.get({ id })
-}
+  return await client.models.Users.list();
+};
 
 export const createUserLog = ({ userId }) => {
     const client = generateClient()

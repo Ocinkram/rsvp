@@ -13,18 +13,30 @@ import { ImageWithFallback } from './ImageWithFallback';
 import { Section } from './ui/Section';
 import { SectionHeader } from './ui/SectionHeader';
 import { SubsectionHeader } from './ui/SubsectionHeader';
+import km11 from '../assets/images/km11.png'
+import music1 from '../assets/music/music1.mp3'
+import { useParams } from 'react-router-dom';
+import { readUser } from '../functions';
+import { useEffect, useState } from 'react';
+
 
 export const Components = () => {
-    const weddingDate = new Date('2026-08-12T14:00:00');
 
-    const galleryImages = [
-        'https://images.unsplash.com/photo-1768468105374-08185b172342?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-        'https://images.unsplash.com/photo-1702456473497-2958d73adc80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-        'https://images.unsplash.com/photo-1766113488429-861f1a7775f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-        'https://images.unsplash.com/photo-1762216444919-043cf813e4de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-        'https://images.unsplash.com/photo-1761120789207-c08a10afb864?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-        'https://images.unsplash.com/photo-1761574044344-394d47e1a96c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-    ];
+    const [invited, setInvited] = useState(false)
+    const { id } = useParams();
+    const userId = id
+
+    const getUser = async () => {
+        const res = await readUser({ userId })
+        if (res) setInvited(true)
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [userId])
+
+
+    const weddingDate = new Date('2026-08-12T14:00:00');
 
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -45,6 +57,9 @@ export const Components = () => {
 
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+
+            {/* <audio src={music1} autoPlay/> */}
+
             {/* Hero Section */}
             <Box
                 id="home"
@@ -60,9 +75,9 @@ export const Components = () => {
             >
                 <Box sx={{ position: 'absolute', inset: 0 }}>
                     <ImageWithFallback
-                        src="https://png.pngtree.com/background/20220724/original/pngtree-watercolor-wedding-floral-background-with-white-roses-picture-image_1739501.jpg"
+                        src={km11}
                         alt="Wedding couple"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: .2 }}
                     />
                 </Box>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 2 }} style={{ zIndex: 1, width: '100%', maxWidth: 600 }}>
@@ -220,18 +235,20 @@ export const Components = () => {
             </Section>
 
             {/* RSVP */}
-            <Section id="rsvp" bgcolor="background.paper">
-                <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-                    <SectionHeader
-                        title="RSVP"
-                        subtitle="Please respond by August 1, 2026"
-                    />
-                    <Typography variant="body2" color="text.secondary" textAlign="center" sx={{ mt: -4, mb: 4 }}>
-                        Were so grateful to have you on our story.
-                    </Typography>
-                </motion.div>
-                <RSVPForm />
-            </Section>
+            {invited &&
+                <Section id="rsvp" bgcolor="background.paper">
+                    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+                        <SectionHeader
+                            title="RSVP"
+                            subtitle="Please respond by August 1, 2026"
+                        />
+                        <Typography variant="body2" color="text.secondary" textAlign="center" sx={{ mt: -4, mb: 4 }}>
+                            Were so grateful to have you on our story.
+                        </Typography>
+                    </motion.div>
+                    <RSVPForm />
+                </Section>
+            }
 
             {/* Our Story & Photos */}
             <Section id="story">
@@ -275,7 +292,7 @@ export const Components = () => {
                     </Grid>
                 </Box>
 
-                <PhotoGallery images={galleryImages} title="Our Journey Together" />
+                <PhotoGallery title="Our Journey Together" />
 
                 <SectionHeader title="Our Wedding Party" compact sx={{ mt: 4 }} />
                 <Grid container spacing={4} justifyContent="center">
@@ -390,7 +407,7 @@ export const Components = () => {
             <Section id="faqs" bgcolor="background.paper">
                 <FAQSection />
             </Section>
-            
+
             {/* Footer */}
             <Box py={{ xs: 5, md: 8 }} px={2} textAlign="center">
                 <Typography variant="body2" color="text.secondary">

@@ -13,13 +13,28 @@ import {
     Paper,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { createResponse, readResponse, updateResponse } from '../functions';
+import { createResponse, readResponse, readUser, updateResponse } from '../functions';
 import { sectionTitleSx } from './ui/headingStyles';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const RSVPForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [loader, setLoader] = useState(false)
     const [hasPreviousData, setHasPreviousData] = useState(false)
+    const [invited, setInvited] = useState(false)
+
+
+    const { id } = useParams();
+    const userId = id
+
+    const getUser =async() => {
+        const res = await readUser({userId})
+        if (res) setInvited(true)
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [userId])
 
     const {
         register,
@@ -29,7 +44,7 @@ export const RSVPForm = () => {
         control,
     } = useForm();
 
-    const userId = '123456sfdfdgfdgdfgds7fds89'
+    // const userId = '123456sfdfdgfdgdfgds7fds89'
 
     const onSubmit = async (data) => {
         if (hasPreviousData) {
@@ -77,6 +92,8 @@ export const RSVPForm = () => {
     useEffect(() => {
         fetchResponse()
     }, [])
+
+    if (!invited) return null
 
     if (isSubmitted) {
         return (

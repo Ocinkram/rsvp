@@ -68,8 +68,8 @@ export const AddUser = () => {
           p: 2,
         }}
       >
-        <Card sx={{ width: "100%", maxWidth: 500, borderRadius: 3 }}>
-          <CardContent sx={{ p: 4 }}>
+        <Card sx={{ width: "100%", maxWidth: 500, borderRadius: 2 }}>
+          <CardContent sx={{ p: 2 }}>
             <Typography variant="h5" fontWeight={600} gutterBottom>
               Add User
             </Typography>

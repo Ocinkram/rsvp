@@ -1,13 +1,19 @@
 import { useTheme, useMediaQuery, Box, ImageList, ImageListItem, Container } from '@mui/material';
 import { SectionHeader } from './ui/SectionHeader';
+import km1 from '../assets/images/km1.png'
+import km2 from '../assets/images/km2.jpg'
+import km3 from '../assets/images/km3.png'
+import km4 from '../assets/images/km4.png'
+import km5 from '../assets/images/km5.png'
+import km6 from '../assets/images/km6.png'
+import km7 from '../assets/images/km7.png'
+import km8 from '../assets/images/km8.jpg'
+import km9 from '../assets/images/km9.png'
+
 
 const images = [
-    'https://images.unsplash.com/photo-1768468105374-08185b172342?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyb21hbnRpYyUyMGNvdXBsZSUyMGVuZ2FnZW1lbnQlMjBvdXRkb29yfGVufDF8fHx8MTc3MjAyMjA1MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    'https://images.unsplash.com/photo-1702456473497-2958d73adc80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3VwbGUlMjBsYXVnaGluZyUyMGhhcHB5JTIwbW9tZW50c3xlbnwxfHx8fDE3NzIwMjIwNTF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    'https://images.unsplash.com/photo-1766113488429-861f1a7775f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwcGFydHklMjBicmlkZXNtYWlkcyUyMGdyb29tc21lbnxlbnwxfHx8fDE3NzIwMjIwNTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    'https://images.unsplash.com/photo-1762216444919-043cf813e4de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwdmVudWUlMjBnYXJkZW4lMjBvdXRkb29yfGVufDF8fHx8MTc3MjAyMjA1MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    'https://images.unsplash.com/photo-1761120789207-c08a10afb864?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwcmVjZXB0aW9uJTIwdmVudWUlMjBlbGVnYW50fGVufDF8fHx8MTc3MjAyMjA1MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    'https://images.unsplash.com/photo-1761574044344-394d47e1a96c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd2VkZGluZyUyMGNlcmVtb255JTIwY291cGxlfGVufDF8fHx8MTc3MTkxOTA5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    km1, km2, km3, km4, km5, km6, km7, km8, km9
+
 ];
 
 export const PhotoGallery = ({ title = 'our journey together' }) => {

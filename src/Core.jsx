@@ -9,8 +9,8 @@ export const Core = () => {
     return (
         <Stack>
             <Routes>
-                <Route path="/" element={<Components/> } />
                 <Route path="/admin" element={<Data />} />
+                <Route path="/guest/:id" element={<Components/> } />
             </Routes>
         </Stack>
     )

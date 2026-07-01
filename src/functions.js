@@ -9,9 +9,15 @@ export const createUser = async ({ name }) => {
 }
 
 export const readUsers = async () => {
-  const client = generateClient();
+    const client = generateClient();
 
-  return await client.models.Users.list();
+    return await client.models.Users.list();
+};
+
+export const readUser = async ({userId}) => {
+    const client = generateClient();
+    const res = await client.models.Users.get({id: userId});
+    return res.data
 };
 
 export const createUserLog = ({ userId }) => {
@@ -35,7 +41,7 @@ export const createResponse = async ({ userId, name, willAttend, guestNumber, me
 
 export const readResponse = async ({ userId }) => {
     const client = generateClient()
-    const res =  await client.models.Responses.get({ userId });
+    const res = await client.models.Responses.get({ userId });
     return res.data
 }
 
@@ -49,3 +55,11 @@ export const updateResponse = async ({ userId, name, willAttend, guestNumber, me
         message
     });
 }
+
+export const readResponses = async () => {
+    const client = generateClient();
+
+    const res = await client.models.Responses.list();
+
+    return res.data;
+};

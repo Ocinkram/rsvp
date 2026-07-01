@@ -11,6 +11,7 @@ export const Core = () => {
             <Routes>
                 <Route path="/admin" element={<Data />} />
                 <Route path="/guest/:id" element={<Components/> } />
+                <Route path="*" element={<Components/> } />
             </Routes>
         </Stack>
     )

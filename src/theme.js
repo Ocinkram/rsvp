@@ -10,6 +10,7 @@ const theme = createTheme({
     background: {
       default: '#E4E2E0',
       paper: '#ffffff',
+      section: '#F5F4F2',
     },
     text: {
       primary: '#444444',

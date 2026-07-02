@@ -2,6 +2,7 @@ import { useState , useEffect} from "react";
 import { Box, Stack, Typography } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { SectionHeader } from './ui/SectionHeader';
+import { AnimateOnView, StaggerItem, StaggerOnView } from './ui/AnimateOnView';
 
 const targetDate = new Date('2026-08-12T14:00:00');
 
@@ -39,33 +40,39 @@ export const CountdownTimer =() => {
                 icon={<CalendarTodayIcon sx={{ fontSize: 28, color: 'primary.main' }} />}
                 compact
             />
-            <Box display='flex' gap={{ xs: 2, sm: 4, md: 8 }} flexWrap="wrap" justifyContent="center">
-                {Object.entries(timeLeft).map(([unit, value]) => (
-                <Stack key={unit} gap={2} alignItems="center">
-                    <Box
-                        width={{ xs: 64, md: 80 }}
-                        height={{ xs: 64, md: 80 }}
-                        borderRadius={2}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        sx={{
-                            backgroundColor: 'primary.main',
-                            color: 'primary.contrastText',
-                            fontSize: { xs: '2rem', md: '3rem' },
-                        }}
-                    >
-                        {value}
-                    </Box>
-                    <Typography fontStyle='italic' variant="body2" color="primary" sx={{ textTransform: 'capitalize' }}>
-                        {unit}
-                    </Typography>
-                </Stack>
-                ))}
-            </Box>
-			<Typography variant="body1" fontStyle='italic' color="text.secondary" textAlign="center" sx={{ px: 2 }}>
-                We can't wait to share our day with you.
-            </Typography>
+            <StaggerOnView>
+                <Box display='flex' gap={{ xs: 2, sm: 4, md: 8 }} flexWrap="wrap" justifyContent="center">
+                    {Object.entries(timeLeft).map(([unit, value]) => (
+                    <StaggerItem key={unit}>
+                        <Stack gap={2} alignItems="center">
+                            <Box
+                                width={{ xs: 64, md: 80 }}
+                                height={{ xs: 64, md: 80 }}
+                                borderRadius={2}
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                sx={{
+                                    backgroundColor: 'primary.main',
+                                    color: 'primary.contrastText',
+                                    fontSize: { xs: '2rem', md: '3rem' },
+                                }}
+                            >
+                                {value}
+                            </Box>
+                            <Typography fontStyle='italic' variant="body2" color="primary" sx={{ textTransform: 'capitalize' }}>
+                                {unit}
+                            </Typography>
+                        </Stack>
+                    </StaggerItem>
+                    ))}
+                </Box>
+            </StaggerOnView>
+			<AnimateOnView delay={0.3}>
+                <Typography variant="body1" fontStyle='italic' color="text.secondary" textAlign="center" sx={{ px: 2 }}>
+                    We can't wait to share our day with you.
+                </Typography>
+            </AnimateOnView>
 		</Stack>
 	);
 }

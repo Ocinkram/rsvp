@@ -1,12 +1,21 @@
 import { Box, Container } from '@mui/material';
 
+const SECTION_BACKGROUNDS = {
+  default: 'background.default',
+  paper: 'background.paper',
+  section: 'background.section',
+};
+
 export const Section = ({
   id,
-  bgcolor = 'background.default',
+  bgcolor,
+  tone = 'default',
   maxWidth = 'lg',
   children,
   sx,
 }) => {
+  const resolvedBg = bgcolor ?? SECTION_BACKGROUNDS[tone] ?? SECTION_BACKGROUNDS.default;
+
   return (
     <Box
       id={id}
@@ -14,7 +23,7 @@ export const Section = ({
       sx={{
         py: { xs: 5, md: 8 },
         px: { xs: 2, sm: 3 },
-        bgcolor,
+        bgcolor: resolvedBg,
         ...sx,
       }}
     >

@@ -13,6 +13,7 @@ import { ImageWithFallback } from './ImageWithFallback';
 import { Section } from './ui/Section';
 import { SectionHeader } from './ui/SectionHeader';
 import { SubsectionHeader } from './ui/SubsectionHeader';
+import { AnimateOnView, StaggerItem, StaggerOnView } from './ui/AnimateOnView';
 import km11 from '../assets/images/km11.png'
 import music1 from '../assets/music/music1.mp3'
 import { useParams } from 'react-router-dom';
@@ -71,13 +72,22 @@ export const Components = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     px: { xs: 2, sm: 3 },
+                    bgcolor: 'background.default',
+                    overflow: 'hidden',
                 }}
             >
                 <Box sx={{ position: 'absolute', inset: 0 }}>
                     <ImageWithFallback
                         src={km11}
                         alt="Wedding couple"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: .2 }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(180deg, rgba(228,226,224,0.72) 0%, rgba(228,226,224,0.88) 50%, rgba(228,226,224,0.95) 100%)',
+                        }}
                     />
                 </Box>
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 2 }} style={{ zIndex: 1, width: '100%', maxWidth: 600 }}>
@@ -135,26 +145,28 @@ export const Components = () => {
             </Box>
 
             {/* Countdown */}
-            <Section sx={{ py: { xs: 3, md: 5 } }} maxWidth={false}>
+            <Section tone="default" sx={{ py: { xs: 3, md: 5 } }} maxWidth={false}>
                 <CountdownTimer targetDate={weddingDate} />
             </Section>
 
             {/* Ceremony Details */}
-            <Section id="details" bgcolor="background.paper">
+            <Section id="details" tone="paper">
                 <Stack gap={4} alignItems="center">
                     <SectionHeader
                         title="Venue"
                         sx={{ mb: { xs: 3, md: 4 } }}
                     />
 
-                    <Grid
-                        container
-                        spacing={4}
-                        justifyContent="center"
-                        sx={{ width: "100%" }}
-                    >
+                    <StaggerOnView>
+                        <Grid
+                            container
+                            spacing={4}
+                            justifyContent="center"
+                            sx={{ width: "100%" }}
+                        >
                         {/* Ceremony */}
                         <Grid item xs={12} md={6}>
+                            <StaggerItem>
                             <Card
                                 elevation={3}
                                 sx={{
@@ -163,6 +175,11 @@ export const Components = () => {
                                     mx: "auto",
                                     borderRadius: 2,
                                     border: "1px solid rgba(134,148,120,0.15)",
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                    '&:hover': {
+                                        transform: 'translateY(-4px)',
+                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                    },
                                 }}
                             >
                                 <CardContent>
@@ -211,10 +228,12 @@ export const Components = () => {
                                     </Stack>
                                 </CardContent>
                             </Card>
+                            </StaggerItem>
                         </Grid>
 
                         {/* Reception */}
                         <Grid item xs={12} md={6}>
+                            <StaggerItem>
                             <Card
                                 elevation={3}
                                 sx={{
@@ -223,6 +242,11 @@ export const Components = () => {
                                     mx: "auto",
                                     borderRadius: 2,
                                     border: "1px solid rgba(134,148,120,0.15)",
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                    '&:hover': {
+                                        transform: 'translateY(-4px)',
+                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                    },
                                 }}
                             >
                                 <CardContent>
@@ -270,41 +294,39 @@ export const Components = () => {
                                     </Stack>
                                 </CardContent>
                             </Card>
+                            </StaggerItem>
                         </Grid>
-                    </Grid>
+                        </Grid>
+                    </StaggerOnView>
                 </Stack>
             </Section>
             {/* RSVP */}
             {invited &&
-                <Section id="rsvp" bgcolor="background.paper">
-                    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-                        <SectionHeader
-                            title="RSVP"
-                            subtitle="Please respond by August 1, 2026"
-                        />
+                <Section id="rsvp" tone="default">
+                    <SectionHeader
+                        title="RSVP"
+                        subtitle="Please respond by August 1, 2026"
+                    />
+                    <AnimateOnView delay={0.15}>
                         <Typography variant="body2" color="text.secondary" textAlign="center" sx={{ mt: -4, mb: 4 }}>
                             Were so grateful to have you on our story.
                         </Typography>
-                    </motion.div>
-                    <RSVPForm />
+                    </AnimateOnView>
+                    <AnimateOnView delay={0.25}>
+                        <RSVPForm />
+                    </AnimateOnView>
                 </Section>
             }
 
             {/* Our Story & Photos */}
-            <Section id="story">
+            <Section id="story" tone={invited ? 'paper' : 'default'}>
                 <Box sx={{ maxWidth: 1000, mx: "auto", width: '100%' }}>
-                    <Box
-                        component={motion.div}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        <SectionHeader title="Our Love Story" />
-                    </Box>
+                    <SectionHeader title="Our Love Story" />
 
-                    <Grid container spacing={4}>
-                        <Grid item xs={12}>
-                            <Card sx={{ p: { xs: 1, sm: 2 } }}>
+                    <AnimateOnView>
+                        <Grid container spacing={4}>
+                            <Grid item xs={12}>
+                                <Card sx={{ p: { xs: 1, sm: 2 } }}>
                                 <CardContent>
                                     <SubsectionHeader title="How We Met" variant="card" align="left" sx={{ mb: 1 }} />
                                     <Typography color="text.primary" sx={{ lineHeight: 1.8 }}>
@@ -329,15 +351,18 @@ export const Components = () => {
                                 </CardContent>
                             </Card>
                         </Grid> */}
-                    </Grid>
+                        </Grid>
+                    </AnimateOnView>
                 </Box>
 
                 <PhotoGallery title="Our Journey Together" />
 
                 <SectionHeader title="Our Wedding Party" compact sx={{ mt: 4 }} />
-                <Grid container spacing={4} justifyContent="center">
+                <StaggerOnView>
+                    <Grid container spacing={4} justifyContent="center">
                     {/* Bridesmaids */}
                     <Grid item xs={12} md={6}>
+                        <StaggerItem>
                         <Card sx={{ height: "100%" }}>
                             <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                                 <SubsectionHeader title="Bridesmaids" variant="card" sx={{ mb: 2 }} />
@@ -356,7 +381,7 @@ export const Components = () => {
                                                 px: 1,
                                                 borderRadius: 1,
                                                 color: "text.primary",
-                                                "&:hover": { bgcolor: "#f5f7f4" },
+                                                "&:hover": { bgcolor: "background.section" },
                                             }}
                                         >
                                             {name}
@@ -365,10 +390,12 @@ export const Components = () => {
                                 </Box>
                             </CardContent>
                         </Card>
+                        </StaggerItem>
                     </Grid>
 
                     {/* Groomsmen */}
                     <Grid item xs={12} md={6}>
+                        <StaggerItem>
                         <Card sx={{ height: "100%" }}>
                             <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                                 <SubsectionHeader title="Groomsmen" variant="card" sx={{ mb: 2 }} />
@@ -387,7 +414,7 @@ export const Components = () => {
                                                 px: 1,
                                                 borderRadius: 1,
                                                 color: "text.primary",
-                                                "&:hover": { bgcolor: "#f5f7f4" },
+                                                "&:hover": { bgcolor: "background.section" },
                                             }}
                                         >
                                             {name}
@@ -396,20 +423,31 @@ export const Components = () => {
                                 </Box>
                             </CardContent>
                         </Card>
+                        </StaggerItem>
                     </Grid>
-                </Grid>
+                    </Grid>
+                </StaggerOnView>
             </Section>
 
             {/* Dress Code & Registry */}
-            <Section bgcolor="#fafafa" maxWidth="md">
+            <Section tone={invited ? 'default' : 'paper'} maxWidth="md">
                 <SectionHeader title="Wedding Details" compact sx={{ mb: 2 }} />
 
-                <Grid container spacing={4} justifyContent="center">
-                    <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
-                        <Card
-                            elevation={2}
-                            sx={{ width: "100%", maxWidth: 420 }}
-                        >
+                <AnimateOnView>
+                    <Grid container spacing={4} justifyContent="center">
+                        <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
+                            <Card
+                                elevation={2}
+                                sx={{
+                                    width: "100%",
+                                    maxWidth: 420,
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                    '&:hover': {
+                                        transform: 'translateY(-4px)',
+                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                    },
+                                }}
+                            >
                             <CardContent>
                                 <Stack spacing={2.5}>
                                     <SubsectionHeader title="Dress Code" variant="card" sx={{ mb: 0, justifyContent: 'center' }} />
@@ -441,15 +479,16 @@ export const Components = () => {
                         </Card>
                     </Grid>
                 </Grid>
+                </AnimateOnView>
             </Section>
 
             {/* FAQs */}
-            <Section id="faqs" bgcolor="background.paper">
+            <Section id="faqs" tone={invited ? 'paper' : 'default'}>
                 <FAQSection />
             </Section>
 
             {/* Footer */}
-            <Box py={{ xs: 5, md: 8 }} px={2} textAlign="center">
+            <Box py={{ xs: 5, md: 8 }} px={2} textAlign="center" bgcolor="background.section">
                 <Typography variant="body2" color="text.secondary">
                     &copy; 2026 Kim & Marie Wedd.
                 </Typography>

@@ -1,6 +1,4 @@
-import React from 'react';
 import {
-  Container,
   Typography,
   Accordion,
   AccordionSummary,
@@ -9,6 +7,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { SectionHeader } from './ui/SectionHeader';
+import { StaggerItem, StaggerOnView } from './ui/AnimateOnView';
 
 export const FAQSection = () => {
 
@@ -45,21 +44,6 @@ export const FAQSection = () => {
       answer:
         'Due to limited capacity, we are only able to accommodate guests formally invited on your invitation. If you received a plus one, it will be indicated on your invitation.',
     },
-    // {
-    //   question: 'Will the ceremony be indoors or outdoors?',
-    //   answer:
-    //     'The ceremony will be held outdoors in the garden, weather permitting. In case of inclement weather, we have a beautiful indoor backup location ready.',
-    // },
-    // {
-    //   question: 'What are the COVID-19 safety measures?',
-    //   answer:
-    //     'The health and safety of our guests is our top priority. We are following all local guidelines and encourage guests to be vaccinated. Hand sanitizing stations will be available throughout the venue.',
-    // },
-    // {
-    //   question: 'Is there parking available?',
-    //   answer:
-    //     'Yes, complimentary parking is available at the venue. There is also valet service available for your convenience.',
-    // },
     {
       question: 'When should I RSVP by?',
       answer:
@@ -73,37 +57,39 @@ export const FAQSection = () => {
   ];
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 6 } }}>
+    <>
       <SectionHeader
         title="Frequently Asked Questions"
         icon={<HelpOutlineIcon sx={{ fontSize: 28, color: 'primary.main' }} />}
       />
 
-      {faqs.map((faq, index) => (
-        <Accordion
-          key={index}
-          disableGutters
-          elevation={1}
-          sx={{
-            mb: 1,
-            overflow: "hidden",
-            "&:before": { display: "none" },
-
-            "&.MuiPaper-root": {
-              borderRadius: "16px", // same as theme spacing(2)
-            },
-          }}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography fontWeight={500}>{faq.question}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography color="text.secondary">
-              {faq.answer}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </Container>
+      <StaggerOnView stagger={0.08}>
+        {faqs.map((faq, index) => (
+          <StaggerItem key={index}>
+            <Accordion
+              disableGutters
+              elevation={1}
+              sx={{
+                mb: 1,
+                overflow: "hidden",
+                "&:before": { display: "none" },
+                "&.MuiPaper-root": {
+                  borderRadius: "16px",
+                },
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography fontWeight={500}>{faq.question}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography color="text.secondary">
+                  {faq.answer}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </StaggerItem>
+        ))}
+      </StaggerOnView>
+    </>
   );
 };

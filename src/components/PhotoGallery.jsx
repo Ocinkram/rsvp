@@ -1,5 +1,6 @@
 import { useTheme, useMediaQuery, Box, ImageList, ImageListItem, Container } from '@mui/material';
 import { SectionHeader } from './ui/SectionHeader';
+import { AnimateOnView } from './ui/AnimateOnView';
 import km1 from '../assets/images/km1.png'
 import km2 from '../assets/images/km2.jpg'
 import km3 from '../assets/images/km3.png'
@@ -43,20 +44,22 @@ export const PhotoGallery = ({ title = 'our journey together' }) => {
                                 boxShadow: 3,
                             }}
                         >
-                            <Box
-                                component="img"
-                                src={image}
-                                alt={`Gallery image ${index + 1}`}
-                                loading="lazy"
-                                sx={{
-                                    width: '100%',
-                                    display: 'block',
-                                    transition: 'transform 0.3s ease',
-                                    '&:hover': {
-                                        transform: 'scale(1.05)',
-                                    },
-                                }}
-                            />
+                            <AnimateOnView delay={index * 0.06} y={20}>
+                                <Box
+                                    component="img"
+                                    src={image}
+                                    alt={`Gallery image ${index + 1}`}
+                                    loading="lazy"
+                                    sx={{
+                                        width: '100%',
+                                        display: 'block',
+                                        transition: 'transform 0.3s ease',
+                                        '&:hover': {
+                                            transform: 'scale(1.05)',
+                                        },
+                                    }}
+                                />
+                            </AnimateOnView>
                         </ImageListItem>
                     ))}
                 </ImageList>

@@ -8,7 +8,6 @@ export const Data = () => {
         <Stack>
             <AddUser />
             <UserList />
-            <ResponsesList/>
         </Stack>
     )
 }

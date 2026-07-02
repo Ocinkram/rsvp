@@ -16,6 +16,7 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
+    TextField,
 } from "@mui/material";
 
 import { readResponses } from "../functions";
@@ -24,6 +25,8 @@ export default function ResponsesList() {
     const [responses, setResponses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const [search, setSearch] = useState("");
 
     const [open, setOpen] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState("");
@@ -51,14 +54,26 @@ export default function ResponsesList() {
         setOpen(true);
     };
 
-    const totalGuests = responses.reduce(
+    const filteredResponses = responses.filter((r) =>
+        `${r.name || ""} ${r.message || ""}`
+            .toLowerCase()
+            .includes(search.toLowerCase())
+    );
+
+    const totalGuests = filteredResponses.reduce(
         (sum, r) => sum + (Number(r.guestNumber) || 0),
         0
     );
 
     if (loading) {
         return (
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    mt: 6,
+                }}
+            >
                 <CircularProgress />
             </Box>
         );
@@ -82,118 +97,174 @@ export default function ResponsesList() {
                     p: 2,
                 }}
             >
-                <Card sx={{ width: "100%", maxWidth: 500, borderRadius: 2 }}>
-                    <CardContent sx={{ p: 2 }}>
+                <Card
+                    sx={{
+                        width: "100%",
+                        maxWidth: 500,
+                        borderRadius: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        maxHeight: "calc(100vh - 32px)", // grows naturally until this height
+                    }}
+                >
+                    <CardContent
+                        sx={{
+                            p: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            flex: 1,
+                            minHeight: 0,
+                        }}
+                    >
                         <Typography variant="h5" fontWeight={600} gutterBottom>
                             Responses
                         </Typography>
 
-                        <Typography variant="body2" color="text.secondary" mb={3}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ mb: 2 }}
+                        >
                             View all submitted RSVP responses below.
                         </Typography>
 
                         {responses.length === 0 ? (
-                            <Alert severity="info">No responses found.</Alert>
+                            <Alert severity="info">
+                                No responses found.
+                            </Alert>
                         ) : (
-                            <TableContainer>
-                                <Table stickyHeader>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell><b>Name</b></TableCell>
-                                            <TableCell><b>Attendance</b></TableCell>
-                                            <TableCell><b>Guests</b></TableCell>
-                                        </TableRow>
-                                    </TableHead>
+                            <>
+                                <TextField
+                                    fullWidth
+                                    size="small"
+                                    placeholder="Search by name or message..."
+                                    value={search}
+                                    onChange={(e) =>
+                                        setSearch(e.target.value)
+                                    }
+                                    sx={{ mb: 2 }}
+                                />
 
-                                    <TableBody>
-                                        {responses.map((r) => (
-                                            <TableRow
-                                                key={r.id}
-                                                hover
-                                                onClick={() =>
-                                                    handleRowClick(r.name, r.message)
-                                                }
-                                                sx={{
-                                                    cursor: "pointer",
-                                                    "&:hover": {
-                                                        backgroundColor: "#f5f5f5",
-                                                    },
-                                                }}
-                                            >
-                                                <TableCell>
-                                                    <Box>
-                                                        <Typography
-                                                            noWrap
-                                                            sx={{
-                                                                maxWidth: 100,
-                                                                overflow: "hidden",
-                                                                textOverflow: "ellipsis",
-                                                            }}
-                                                        >
-                                                            {r.name || "Unnamed Guest"}
-                                                        </Typography>
+                                {filteredResponses.length === 0 ? (
+                                    <Alert severity="info">
+                                        No matching responses found.
+                                    </Alert>
+                                ) : (
+                                    <TableContainer
+                                        sx={{
+                                            flex: 1,
+                                            minHeight: 0,
+                                            overflowY: "auto",
+                                        }}
+                                    >
+                                        <Table stickyHeader>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        <b>Name</b>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <b>Attendance</b>
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <b>Guests</b>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableHead>
 
-                                                        {/* 👇 indicator */}
-                                                        <Typography
-                                                            variant="caption"
-                                                            color="text.secondary"
-                                                        >
-                                                            Click to view message
-                                                        </Typography>
-                                                    </Box>
-                                                </TableCell>
-
-                                                <TableCell>
-                                                    <Chip
-                                                        label={
-                                                            r.willAttend
-                                                                ? "Attending"
-                                                                : "Not Attending"
+                                            <TableBody>
+                                                {filteredResponses.map((r) => (
+                                                    <TableRow
+                                                        key={r.id}
+                                                        hover
+                                                        onClick={() =>
+                                                            handleRowClick(
+                                                                r.name,
+                                                                r.message
+                                                            )
                                                         }
-                                                        color={
-                                                            r.willAttend ? "success" : "error"
-                                                        }
-                                                        size="small"
-                                                    />
-                                                </TableCell>
+                                                        sx={{
+                                                            cursor: "pointer",
+                                                            "&:hover": {
+                                                                backgroundColor:
+                                                                    "#f5f5f5",
+                                                            },
+                                                        }}
+                                                    >
+                                                        <TableCell>
+                                                            <Typography
+                                                                noWrap
+                                                                sx={{
+                                                                    maxWidth: 140,
+                                                                    overflow:
+                                                                        "hidden",
+                                                                    textOverflow:
+                                                                        "ellipsis",
+                                                                }}
+                                                            >
+                                                                {r.name ||
+                                                                    "Unnamed Guest"}
+                                                            </Typography>
+                                                        </TableCell>
 
-                                                <TableCell>
-                                                    {r.guestNumber || 0}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                                        <TableCell>
+                                                            <Chip
+                                                                size="small"
+                                                                label={
+                                                                    r.willAttend
+                                                                        ? "Attending"
+                                                                        : "Not Attending"
+                                                                }
+                                                                color={
+                                                                    r.willAttend
+                                                                        ? "success"
+                                                                        : "error"
+                                                                }
+                                                            />
+                                                        </TableCell>
 
-                                        {/* TOTAL ROW */}
-                                        <TableRow>
-                                            <TableCell colSpan={2}>
-                                                <b>Total Guests</b>
-                                            </TableCell>
-                                            <TableCell>
-                                                <b>{totalGuests}</b>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                                                        <TableCell align="right">
+                                                            {r.guestNumber || 0}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+
+                                                <TableRow>
+                                                    <TableCell colSpan={2}>
+                                                        <b>Total Guests</b>
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <b>{totalGuests}</b>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                )}
+                            </>
                         )}
                     </CardContent>
                 </Card>
             </Box>
 
-            {/* MESSAGE MODAL */}
-            <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+            <Dialog
+                open={open}
+                onClose={() => setOpen(false)}
+                fullWidth
+                maxWidth="sm"
+            >
                 <DialogTitle>
-    <Typography
-        noWrap
-        sx={{
-            maxWidth: 300,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-        }}
-    >
-        Message from {selectedName}
-    </Typography>
-</DialogTitle>
+                    <Typography
+                        noWrap
+                        sx={{
+                            maxWidth: 300,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                        }}
+                    >
+                        Message from {selectedName}
+                    </Typography>
+                </DialogTitle>
 
                 <DialogContent>
                     <Typography sx={{ mt: 1 }}>

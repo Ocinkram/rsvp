@@ -44,7 +44,7 @@ export default function UserList() {
   }, []);
 
   const handleCopyLink = async (id) => {
-    const link = `wedding-invitation-kim-and-marie.vercel.app/guest/${id}`;
+    const link = `https://wedding-invitation-kim-and-marie.vercel.app/guest/${id}`;
 
     try {
       await navigator.clipboard.writeText(link);
@@ -54,20 +54,17 @@ export default function UserList() {
     }
   };
 
-  // 🔍 + 📊 FILTER + SORT
   const filteredAndSortedUsers = useMemo(() => {
     const q = search.toLowerCase().trim();
 
     let result = [...users];
 
-    // SEARCH
     if (q) {
       result = result.filter((user) =>
         (user.name || "").toLowerCase().includes(q)
       );
     }
 
-    // SORT
     switch (sortBy) {
       case "name_asc":
         result.sort((a, b) =>
@@ -99,12 +96,28 @@ export default function UserList() {
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "flex-start",
           p: 2,
         }}
       >
-        <Card sx={{ width: "100%", maxWidth: 500, borderRadius: 2 }}>
-          <CardContent sx={{ p: 2 }}>
+        <Card
+          sx={{
+            width: "100%",
+            maxWidth: 500,
+            borderRadius: 2,
+            maxHeight: "calc(100vh - 32px)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <CardContent
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+              minHeight: 0,
+            }}
+          >
             {/* Header */}
             <Box
               display="flex"
@@ -114,11 +127,11 @@ export default function UserList() {
             >
               <Box>
                 <Typography variant="h5" fontWeight={600}>
-                  Users
+                  Guests
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary">
-                  Manage and copy invitation links for users.
+                  Manage and copy invitation links for guests.
                 </Typography>
               </Box>
 
@@ -131,7 +144,7 @@ export default function UserList() {
               </Button>
             </Box>
 
-            {/* 🔍 SEARCH + SORT CONTROLS */}
+            {/* Search + Sort */}
             <Box
               sx={{
                 display: "flex",
@@ -143,7 +156,7 @@ export default function UserList() {
               <TextField
                 fullWidth
                 size="small"
-                placeholder="Search users by name..."
+                placeholder="Search users..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -153,23 +166,24 @@ export default function UserList() {
                 size="small"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                sx={{ minWidth: 200 }}
+                sx={{ minWidth: 180 }}
               >
-                <MenuItem value="createdAt">
-                  Newest First
-                </MenuItem>
-                <MenuItem value="name_asc">
-                  Name (A → Z)
-                </MenuItem>
-                <MenuItem value="name_desc">
-                  Name (Z → A)
-                </MenuItem>
+                <MenuItem value="createdAt">Newest First</MenuItem>
+                <MenuItem value="name_asc">Name (A → Z)</MenuItem>
+                <MenuItem value="name_desc">Name (Z → A)</MenuItem>
               </TextField>
             </Box>
 
             {/* Content */}
             {loading ? (
-              <Box display="flex" justifyContent="center" py={6}>
+              <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <CircularProgress />
               </Box>
             ) : filteredAndSortedUsers.length === 0 ? (
@@ -177,36 +191,43 @@ export default function UserList() {
                 No users found.
               </Typography>
             ) : (
-              <List>
-                {filteredAndSortedUsers.map((user) => (
-                  <ListItem
-                    key={user.id}
-                    divider
-                    secondaryAction={
-                      <IconButton
-                        edge="end"
-                        onClick={() => handleCopyLink(user.id)}
-                      >
-                        <LinkIcon />
-                      </IconButton>
-                    }
-                  >
-                    <ListItemText
-                      primary={
-                        <Typography fontWeight={500}>
-                          {user.name}
-                        </Typography>
+              <Box
+                sx={{
+                  flex: 1,
+                  overflowY: "auto",
+                  minHeight: 0,
+                }}
+              >
+                <List disablePadding>
+                  {filteredAndSortedUsers.map((user) => (
+                    <ListItem
+                      key={user.id}
+                      divider
+                      secondaryAction={
+                        <IconButton
+                          edge="end"
+                          onClick={() => handleCopyLink(user.id)}
+                        >
+                          <LinkIcon />
+                        </IconButton>
                       }
-                    />
-                  </ListItem>
-                ))}
-              </List>
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography fontWeight={500}>
+                            {user.name}
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
             )}
           </CardContent>
         </Card>
       </Box>
 
-      {/* Snackbar */}
       <Snackbar
         open={open}
         autoHideDuration={2000}

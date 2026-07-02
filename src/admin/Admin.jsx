@@ -64,45 +64,45 @@ export const AddUser = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
           p: 2,
         }}
       >
         <Card sx={{ width: "100%", maxWidth: 500, borderRadius: 2 }}>
           <CardContent sx={{ p: 2 }}>
-            <Typography variant="h5" fontWeight={600} gutterBottom>
-              Add User
+            <Typography variant="h6" fontWeight={600}>
+              Add Guest
             </Typography>
 
             <Typography
               variant="body2"
               color="text.secondary"
-              mb={3}
+              sx={{ mb: 2 }}
             >
-              Enter the user's information below.
+              Enter the guest's name.
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit}>
               <TextField
                 fullWidth
                 required
+                size="small"
                 label="Name"
-                placeholder="Enter user's name"
+                placeholder="Enter guest name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                margin="normal"
               />
 
               <Box
                 sx={{
-                  mt: 3,
+                  mt: 2,
                   display: "flex",
                   justifyContent: "flex-end",
-                  gap: 2,
+                  gap: 1,
                 }}
               >
                 <Button
                   variant="outlined"
+                  size="small"
                   disabled={loading}
                   onClick={() => setName("")}
                 >
@@ -112,12 +112,15 @@ export const AddUser = () => {
                 <Button
                   type="submit"
                   variant="contained"
+                  size="small"
                   disabled={loading}
                   startIcon={
-                    loading ? <CircularProgress size={18} color="inherit" /> : null
+                    loading ? (
+                      <CircularProgress size={16} color="inherit" />
+                    ) : null
                   }
                 >
-                  {loading ? "Creating..." : "Create User"}
+                  {loading ? "Creating..." : "Create"}
                 </Button>
               </Box>
             </Box>
@@ -150,4 +153,4 @@ export const AddUser = () => {
       </Snackbar>
     </>
   );
-}
+};

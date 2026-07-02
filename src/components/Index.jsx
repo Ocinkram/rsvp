@@ -26,8 +26,6 @@ export const Components = () => {
     const { id } = useParams();
     const userId = id
 
-    console.log(userId)
-
     const getUser = async () => {
         const res = await readUser({ userId })
         if (res) setInvited(true)
@@ -143,20 +141,27 @@ export const Components = () => {
 
             {/* Ceremony Details */}
             <Section id="details" bgcolor="background.paper">
-                <Stack gap={4} alignItems='center'>
+                <Stack gap={4} alignItems="center">
                     <SectionHeader
                         title="Venue"
                         sx={{ mb: { xs: 3, md: 4 } }}
                     />
 
-                    <Grid container spacing={4} justifyContent="center" width="100%">
-
+                    <Grid
+                        container
+                        spacing={4}
+                        justifyContent="center"
+                        sx={{ width: "100%" }}
+                    >
                         {/* Ceremony */}
-                        <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+                        <Grid item xs={12} md={6}>
                             <Card
                                 elevation={3}
                                 sx={{
                                     width: "100%",
+                                    maxWidth: 500,
+                                    mx: "auto",
+                                    borderRadius: 2,
                                     border: "1px solid rgba(134,148,120,0.15)",
                                 }}
                             >
@@ -166,7 +171,12 @@ export const Components = () => {
                                             title="Ceremony"
                                             variant="card"
                                             align="left"
-                                            icon={<LocationOn fontSize="small" sx={{ color: 'primary.main' }} />}
+                                            icon={
+                                                <LocationOn
+                                                    fontSize="small"
+                                                    sx={{ color: "primary.main" }}
+                                                />
+                                            }
                                             sx={{ mb: 0 }}
                                         />
 
@@ -174,9 +184,12 @@ export const Components = () => {
                                             <Typography>
                                                 <strong>Venue:</strong> The Garden Estate
                                             </Typography>
+
                                             <Typography>
-                                                <strong>Address:</strong> 1234 Riverside Drive, Greenville, CA 94523
+                                                <strong>Address:</strong> 1234 Riverside Drive,
+                                                Greenville, CA 94523
                                             </Typography>
+
                                             <Typography>
                                                 <strong>Time:</strong> 3:00 PM
                                             </Typography>
@@ -186,9 +199,11 @@ export const Components = () => {
                                             variant="contained"
                                             color="primary"
                                             fullWidth
-                                            sx={{ mt: 1 }}
                                             onClick={() =>
-                                                window.open("https://maps.google.com", "_blank")
+                                                window.open(
+                                                    "https://maps.google.com",
+                                                    "_blank"
+                                                )
                                             }
                                         >
                                             View Map
@@ -199,11 +214,14 @@ export const Components = () => {
                         </Grid>
 
                         {/* Reception */}
-                        <Grid item xs={12} md={6} sx={{ display: "flex" }}>
+                        <Grid item xs={12} md={6}>
                             <Card
                                 elevation={3}
                                 sx={{
                                     width: "100%",
+                                    maxWidth: 500,
+                                    mx: "auto",
+                                    borderRadius: 2,
                                     border: "1px solid rgba(134,148,120,0.15)",
                                 }}
                             >
@@ -213,7 +231,12 @@ export const Components = () => {
                                             title="Reception"
                                             variant="card"
                                             align="left"
-                                            icon={<FavoriteBorderIcon fontSize="small" sx={{ color: 'primary.main' }} />}
+                                            icon={
+                                                <FavoriteBorderIcon
+                                                    fontSize="small"
+                                                    sx={{ color: "primary.main" }}
+                                                />
+                                            }
                                             sx={{ mb: 0 }}
                                         />
 
@@ -221,13 +244,29 @@ export const Components = () => {
                                             <Typography>
                                                 <strong>Venue:</strong> The Garden Estate
                                             </Typography>
+
                                             <Typography>
                                                 <strong>Time:</strong> 4:00 PM
                                             </Typography>
+
                                             <Typography>
                                                 <strong>Details:</strong> Dinner, drinks, and dancing
                                             </Typography>
                                         </Stack>
+
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            fullWidth
+                                            onClick={() =>
+                                                window.open(
+                                                    "https://maps.google.com",
+                                                    "_blank"
+                                                )
+                                            }
+                                        >
+                                            View Map
+                                        </Button>
                                     </Stack>
                                 </CardContent>
                             </Card>
@@ -235,7 +274,6 @@ export const Components = () => {
                     </Grid>
                 </Stack>
             </Section>
-
             {/* RSVP */}
             {invited &&
                 <Section id="rsvp" bgcolor="background.paper">

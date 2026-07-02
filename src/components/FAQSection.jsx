@@ -18,17 +18,17 @@ export const FAQSection = () => {
       answer: (
         <Typography component="span">
           The dress code is semi-formal, with{' '}
-          <Typography component="span" sx={{ color: 'olive', fontWeight: 900 }}>
+          <Typography component="span" sx={{ fontWeight: 900 }}>
             olive green
           </Typography>{' '}
           as the preferred color theme. Ladies, feel free to wear cocktail dresses
           or elegant separates in{' '}
-          <Typography component="span" sx={{ color: 'olive', fontWeight: 900 }}>
+          <Typography component="span" sx={{ fontWeight: 900 }}>
             olive green
           </Typography>{' '}
           or complementary neutral tones. Gentlemen, a suit and tie or a dress
           shirt with slacks in{' '}
-          <Typography component="span" sx={{ color: 'olive', fontWeight: 900 }}>
+          <Typography component="span" sx={{ fontWeight: 900 }}>
             olive green
           </Typography>{' '}
           accents or coordinating colors would be perfect.
@@ -84,7 +84,15 @@ export const FAQSection = () => {
           key={index}
           disableGutters
           elevation={1}
-          sx={{ mb: 1, borderRadius: 2, '&:before': { display: 'none' } }}
+          sx={{
+            mb: 1,
+            overflow: "hidden",
+            "&:before": { display: "none" },
+
+            "&.MuiPaper-root": {
+              borderRadius: "16px", // same as theme spacing(2)
+            },
+          }}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography fontWeight={500}>{faq.question}</Typography>

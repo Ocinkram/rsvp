@@ -26,6 +26,8 @@ export const Components = () => {
     const { id } = useParams();
     const userId = id
 
+    console.log(userId)
+
     const getUser = async () => {
         const res = await readUser({ userId })
         if (res) setInvited(true)

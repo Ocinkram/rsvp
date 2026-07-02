@@ -6,11 +6,12 @@ import { Data } from "./admin/index.jsx"
 import { Route, Routes } from "react-router-dom"
 
 export const Core = () => {
+    console.log('v1')
     return (
         <Stack>
             <Routes>
                 <Route path="/admin" element={<Data />} />
-                {/* <Route path="/guest/:id" element={<Components/> } /> */}
+                <Route path="/guest/:id" element={<Components/> } />
                 <Route path="*" element={<Components/> } />
             </Routes>
         </Stack>

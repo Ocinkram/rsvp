@@ -14,9 +14,9 @@ export const readUsers = async () => {
     return await client.models.Users.list();
 };
 
-export const readUser = async ({userId}) => {
+export const readUser = async ({ userId }) => {
     const client = generateClient();
-    const res = await client.models.Users.get({id: userId});
+    const res = await client.models.Users.get({ id: userId });
     return res.data
 };
 
@@ -26,6 +26,15 @@ export const createUserLog = ({ userId }) => {
     client.models.UserLogs.create({
         userId
     });
+}
+
+export const getUserLogsByUserId = async ({ userId }) => {
+    const client = generateClient();
+
+    const res = await client.models.UserLogs.listUserLogsByUserId({
+        userId,
+    });
+    return res.data
 }
 
 export const createResponse = async ({ userId, name, willAttend, guestNumber, message, }) => {

@@ -15,17 +15,20 @@ import { SectionHeader } from './ui/SectionHeader';
 import { SubsectionHeader } from './ui/SubsectionHeader';
 import { AnimateOnView, StaggerItem, StaggerOnView } from './ui/AnimateOnView';
 import km11 from '../assets/images/km11.png'
+import km100 from '../assets/images/km100.png'
 import music1 from '../assets/music/music1.mp3'
 import { useParams } from 'react-router-dom';
 import { readUser } from '../functions';
 import { useEffect, useState } from 'react';
-
+import { useMediaQuery } from "@mui/material";
 
 export const Components = () => {
 
     const [invited, setInvited] = useState(false)
     const { id } = useParams();
     const userId = id
+
+    const isDesktop = useMediaQuery("(min-width:850px)");
 
     const getUser = async () => {
         const res = await readUser({ userId })
@@ -78,9 +81,13 @@ export const Components = () => {
             >
                 <Box sx={{ position: 'absolute', inset: 0 }}>
                     <ImageWithFallback
-                        src={km11}
+                        src={isDesktop ? km100 : km11}
                         alt="Wedding couple"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                        }}
                     />
                     <Box
                         sx={{
@@ -164,138 +171,137 @@ export const Components = () => {
                             justifyContent="center"
                             sx={{ width: "100%" }}
                         >
-                        {/* Ceremony */}
-                        <Grid item xs={12} md={6}>
-                            <StaggerItem>
-                            <Card
-                                elevation={3}
-                                sx={{
-                                    width: "100%",
-                                    maxWidth: 500,
-                                    mx: "auto",
-                                    borderRadius: 2,
-                                    border: "1px solid rgba(134,148,120,0.15)",
-                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                    '&:hover': {
-                                        transform: 'translateY(-4px)',
-                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
-                                    },
-                                }}
-                            >
-                                <CardContent>
-                                    <Stack spacing={2.5}>
-                                        <SubsectionHeader
-                                            title="Ceremony"
-                                            variant="card"
-                                            align="left"
-                                            icon={
-                                                <LocationOn
-                                                    fontSize="small"
-                                                    sx={{ color: "primary.main" }}
+                            {/* Ceremony */}
+                            <Grid item xs={12} md={6}>
+                                <StaggerItem>
+                                    <Card
+                                        elevation={3}
+                                        sx={{
+                                            width: "100%",
+                                            maxWidth: 500,
+                                            mx: "auto",
+                                            borderRadius: 2,
+                                            border: "1px solid rgba(134,148,120,0.15)",
+                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                            '&:hover': {
+                                                transform: 'translateY(-4px)',
+                                                boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                            },
+                                        }}
+                                    >
+                                        <CardContent>
+                                            <Stack spacing={2.5}>
+                                                <SubsectionHeader
+                                                    title="Ceremony"
+                                                    variant="card"
+                                                    align="left"
+                                                    icon={
+                                                        <LocationOn
+                                                            fontSize="small"
+                                                            sx={{ color: "primary.main" }}
+                                                        />
+                                                    }
+                                                    sx={{ mb: 0 }}
                                                 />
-                                            }
-                                            sx={{ mb: 0 }}
-                                        />
 
-                                        <Stack spacing={1} color="text.secondary">
-                                            <Typography>
-                                                <strong>Venue:</strong> The Garden Estate
-                                            </Typography>
+                                                <Stack spacing={1} color="text.secondary">
+                                                    <Typography>
+                                                        <strong>Venue:</strong> Our Lady of the Assumption Church
+                                                    </Typography>
 
-                                            <Typography>
-                                                <strong>Address:</strong> 1234 Riverside Drive,
-                                                Greenville, CA 94523
-                                            </Typography>
+                                                    <Typography>
+                                                        <strong>Address:</strong> Brgy. Laniwan, Palapag, Northern Samar
+                                                    </Typography>
 
-                                            <Typography>
-                                                <strong>Time:</strong> 3:00 PM
-                                            </Typography>
-                                        </Stack>
+                                                    <Typography>
+                                                        <strong>Time:</strong> 2:00 PM
+                                                    </Typography>
+                                                </Stack>
 
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            fullWidth
-                                            onClick={() =>
-                                                window.open(
-                                                    "https://maps.google.com",
-                                                    "_blank"
-                                                )
-                                            }
-                                        >
-                                            View Map
-                                        </Button>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                            </StaggerItem>
-                        </Grid>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    fullWidth
+                                                    onClick={() =>
+                                                        window.open(
+                                                            "https://www.google.com/maps/place/Our+Lady+of+the+Assumption+Church/@12.5450189,125.1156025,21z/data=!4m6!3m5!1s0x330a2e1d35f73013:0x8dd8a13781ddbbe!8m2!3d12.5450562!4d125.1155719!16s%2Fg%2F11cfd2sv1?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D",
+                                                            "_blank"
+                                                        )
+                                                    }
+                                                >
+                                                    View Map
+                                                </Button>
+                                            </Stack>
+                                        </CardContent>
+                                    </Card>
+                                </StaggerItem>
+                            </Grid>
 
-                        {/* Reception */}
-                        <Grid item xs={12} md={6}>
-                            <StaggerItem>
-                            <Card
-                                elevation={3}
-                                sx={{
-                                    width: "100%",
-                                    maxWidth: 500,
-                                    mx: "auto",
-                                    borderRadius: 2,
-                                    border: "1px solid rgba(134,148,120,0.15)",
-                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                    '&:hover': {
-                                        transform: 'translateY(-4px)',
-                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
-                                    },
-                                }}
-                            >
-                                <CardContent>
-                                    <Stack spacing={2.5}>
-                                        <SubsectionHeader
-                                            title="Reception"
-                                            variant="card"
-                                            align="left"
-                                            icon={
-                                                <FavoriteBorderIcon
-                                                    fontSize="small"
-                                                    sx={{ color: "primary.main" }}
+                            {/* Reception */}
+                            <Grid item xs={12} md={6}>
+                                <StaggerItem>
+                                    <Card
+                                        elevation={3}
+                                        sx={{
+                                            width: "100%",
+                                            maxWidth: 500,
+                                            mx: "auto",
+                                            borderRadius: 2,
+                                            border: "1px solid rgba(134,148,120,0.15)",
+                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                            '&:hover': {
+                                                transform: 'translateY(-4px)',
+                                                boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                            },
+                                        }}
+                                    >
+                                        <CardContent>
+                                            <Stack spacing={2.5}>
+                                                <SubsectionHeader
+                                                    title="Reception"
+                                                    variant="card"
+                                                    align="left"
+                                                    icon={
+                                                        <FavoriteBorderIcon
+                                                            fontSize="small"
+                                                            sx={{ color: "primary.main" }}
+                                                        />
+                                                    }
+                                                    sx={{ mb: 0 }}
                                                 />
-                                            }
-                                            sx={{ mb: 0 }}
-                                        />
 
-                                        <Stack spacing={1} color="text.secondary">
-                                            <Typography>
-                                                <strong>Venue:</strong> The Garden Estate
-                                            </Typography>
+                                                <Stack spacing={1} color="text.secondary">
+                                                    <Typography>
+                                                        <strong>Venue:</strong> Venus Hotel
+                                                    </Typography>
 
-                                            <Typography>
-                                                <strong>Time:</strong> 4:00 PM
-                                            </Typography>
+                                                    <Typography>
+                                                        <strong>Time:</strong> 3:00 PM
+                                                    </Typography>
 
-                                            <Typography>
-                                                <strong>Details:</strong> Dinner, drinks, and dancing
-                                            </Typography>
-                                        </Stack>
+                                                    <Typography>
+                                                        <strong>Details:</strong> Dinner, drinks, and dancing
+                                                    </Typography>
+                                                </Stack>
 
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            fullWidth
-                                            onClick={() =>
-                                                window.open(
-                                                    "https://maps.google.com",
-                                                    "_blank"
-                                                )
-                                            }
-                                        >
-                                            View Map
-                                        </Button>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                            </StaggerItem>
-                        </Grid>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    fullWidth
+                                                    onClick={() =>
+                                                        window.open(
+                                                            "https://www.google.com/maps/place/Venus+Hotel/@12.5445933,125.111948,17z/data=!3m1!4b1!4m6!3m5!1s0x330a2fbcf92c4315:0xa4a126474ca3c456!8m2!3d12.5445933!4d125.1145229!16s%2Fg%2F11tmhy9pqt?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D",
+                                                            "_blank"
+                                                        )
+                                                    }
+                                                >
+                                                    View Map
+                                                </Button>
+                                            </Stack>
+                                        </CardContent>
+                                    </Card>
+                                </StaggerItem>
+                            </Grid>
                         </Grid>
                     </StaggerOnView>
                 </Stack>
@@ -327,19 +333,19 @@ export const Components = () => {
                         <Grid container spacing={4}>
                             <Grid item xs={12}>
                                 <Card sx={{ p: { xs: 1, sm: 2 } }}>
-                                <CardContent>
-                                    <SubsectionHeader title="How We Met" variant="card" align="left" sx={{ mb: 1 }} />
-                                    <Typography color="text.primary" sx={{ lineHeight: 1.8 }}>
-                                        Our story began on a rainy Tuesday evening at a local coffee shop.
-                                        James was reading a book, and Emma accidentally spilled her latte on his table.
-                                        What could have been an awkward moment turned into hours of conversation and laughter.
-                                        We've been inseparable ever since.
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+                                    <CardContent>
+                                        <SubsectionHeader title="How We Met" variant="card" align="left" sx={{ mb: 1 }} />
+                                        <Typography color="text.primary" sx={{ lineHeight: 1.8 }}>
+                                            Our story began on a rainy Tuesday evening at a local coffee shop.
+                                            James was reading a book, and Emma accidentally spilled her latte on his table.
+                                            What could have been an awkward moment turned into hours of conversation and laughter.
+                                            We've been inseparable ever since.
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
 
-                        {/* <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                             <Card sx={{ p: { xs: 1, sm: 2 } }}>
                                 <CardContent>
                                     <SubsectionHeader title="The Proposal" variant="card" align="left" sx={{ mb: 1 }} />
@@ -355,76 +361,76 @@ export const Components = () => {
                     </AnimateOnView>
                 </Box>
 
-                <PhotoGallery title="Our Journey Together" />
+                <PhotoGallery title="Before the “I Do”" />
 
                 <SectionHeader title="Our Wedding Party" compact sx={{ mt: 4 }} />
                 <StaggerOnView>
                     <Grid container spacing={4} justifyContent="center">
-                    {/* Bridesmaids */}
-                    <Grid item xs={12} md={6}>
-                        <StaggerItem>
-                        <Card sx={{ height: "100%" }}>
-                            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                                <SubsectionHeader title="Bridesmaids" variant="card" sx={{ mb: 2 }} />
-                                <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-                                    {[
-                                        "Sarah Mitchell - Maid of Honor",
-                                        "Jessica Chen",
-                                        "Lauren Davis",
-                                        "Rachel Thompson",
-                                    ].map((name, i) => (
-                                        <Box
-                                            component="li"
-                                            key={i}
-                                            sx={{
-                                                py: 0.8,
-                                                px: 1,
-                                                borderRadius: 1,
-                                                color: "text.primary",
-                                                "&:hover": { bgcolor: "background.section" },
-                                            }}
-                                        >
-                                            {name}
+                        {/* Bridesmaids */}
+                        <Grid item xs={12} md={6}>
+                            <StaggerItem>
+                                <Card sx={{ height: "100%" }}>
+                                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                                        <SubsectionHeader title="Bridesmaids" variant="card" sx={{ mb: 2 }} />
+                                        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
+                                            {[
+                                                "Sarah Mitchell - Maid of Honor",
+                                                "Jessica Chen",
+                                                "Lauren Davis",
+                                                "Rachel Thompson",
+                                            ].map((name, i) => (
+                                                <Box
+                                                    component="li"
+                                                    key={i}
+                                                    sx={{
+                                                        py: 0.8,
+                                                        px: 1,
+                                                        borderRadius: 1,
+                                                        color: "text.primary",
+                                                        "&:hover": { bgcolor: "background.section" },
+                                                    }}
+                                                >
+                                                    {name}
+                                                </Box>
+                                            ))}
                                         </Box>
-                                    ))}
-                                </Box>
-                            </CardContent>
-                        </Card>
-                        </StaggerItem>
-                    </Grid>
+                                    </CardContent>
+                                </Card>
+                            </StaggerItem>
+                        </Grid>
 
-                    {/* Groomsmen */}
-                    <Grid item xs={12} md={6}>
-                        <StaggerItem>
-                        <Card sx={{ height: "100%" }}>
-                            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                                <SubsectionHeader title="Groomsmen" variant="card" sx={{ mb: 2 }} />
-                                <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-                                    {[
-                                        "Michael Anderson - Best Man",
-                                        "David Park",
-                                        "Ryan Williams",
-                                        "Alex Martinez",
-                                    ].map((name, i) => (
-                                        <Box
-                                            component="li"
-                                            key={i}
-                                            sx={{
-                                                py: 0.8,
-                                                px: 1,
-                                                borderRadius: 1,
-                                                color: "text.primary",
-                                                "&:hover": { bgcolor: "background.section" },
-                                            }}
-                                        >
-                                            {name}
+                        {/* Groomsmen */}
+                        <Grid item xs={12} md={6}>
+                            <StaggerItem>
+                                <Card sx={{ height: "100%" }}>
+                                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                                        <SubsectionHeader title="Groomsmen" variant="card" sx={{ mb: 2 }} />
+                                        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
+                                            {[
+                                                "Michael Anderson - Best Man",
+                                                "David Park",
+                                                "Ryan Williams",
+                                                "Alex Martinez",
+                                            ].map((name, i) => (
+                                                <Box
+                                                    component="li"
+                                                    key={i}
+                                                    sx={{
+                                                        py: 0.8,
+                                                        px: 1,
+                                                        borderRadius: 1,
+                                                        color: "text.primary",
+                                                        "&:hover": { bgcolor: "background.section" },
+                                                    }}
+                                                >
+                                                    {name}
+                                                </Box>
+                                            ))}
                                         </Box>
-                                    ))}
-                                </Box>
-                            </CardContent>
-                        </Card>
-                        </StaggerItem>
-                    </Grid>
+                                    </CardContent>
+                                </Card>
+                            </StaggerItem>
+                        </Grid>
                     </Grid>
                 </StaggerOnView>
             </Section>
@@ -441,44 +447,92 @@ export const Components = () => {
                                 sx={{
                                     width: "100%",
                                     maxWidth: 420,
-                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                    '&:hover': {
-                                        transform: 'translateY(-4px)',
-                                        boxShadow: '0 16px 40px rgba(85,95,76,0.12)',
+                                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                    "&:hover": {
+                                        transform: "translateY(-4px)",
+                                        boxShadow: "0 16px 40px rgba(85,95,76,0.12)",
                                     },
                                 }}
                             >
-                            <CardContent>
-                                <Stack spacing={2.5}>
-                                    <SubsectionHeader title="Dress Code" variant="card" sx={{ mb: 0, justifyContent: 'center' }} />
-                                    <Typography variant="body1" textAlign="center">
-                                        Semi-Formal / Garden Elegant
-                                    </Typography>
-                                    <Stack spacing={0.5}>
-                                        <Typography variant="subtitle2" fontWeight={600}>
-                                            For the Ladies:
+                                <CardContent>
+                                    <Stack spacing={2.5}>
+                                        <SubsectionHeader
+                                            title="Dress Code"
+                                            variant="card"
+                                            sx={{ mb: 0, justifyContent: "center" }}
+                                        />
+
+                                        <Typography variant="body1" textAlign="center">
+                                            Semi-Formal / Garden Elegant
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            Cocktail dresses, elegant jumpsuits, or dressy separates.
-                                            Wedges or block heels recommended for outdoor setting.
+
+                                        <Stack spacing={0.5}>
+                                            <Typography variant="subtitle2" fontWeight={600}>
+                                                For the Ladies:
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Cocktail dresses, elegant jumpsuits, or dressy separates.
+                                                Wedges or block heels recommended for outdoor setting.
+                                            </Typography>
+                                        </Stack>
+
+                                        <Stack spacing={0.5}>
+                                            <Typography variant="subtitle2" fontWeight={600}>
+                                                For the Gentlemen:
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Suit and tie, or dress shirt with slacks. Sport coats are optional.
+                                            </Typography>
+                                        </Stack>
+
+                                        <Typography
+                                            variant="body2"
+                                            fontStyle="italic"
+                                            color="text.secondary"
+                                            textAlign="center"
+                                        >
+                                            Soft pastel greens and sage green tones.
                                         </Typography>
+
+                                        {/* Color Palette */}
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                flexWrap: "wrap",
+                                                gap: 1.5,
+                                                pt: 1,
+                                            }}
+                                        >
+                                            {[
+                                                // "#EAF4EA", // Mint Mist
+                                                // "#DDEBD9", // Pale Sage
+                                                // "#CFE3C9", // Soft Sage
+                                                "#BFD6B8", // Sage Green
+                                                "#A8C5A0", // Classic Sage
+                                                "#90B68B", // Eucalyptus
+                                                "#7FA57A", // Moss Green
+                                                "#6F946A", // Olive Sage
+                                            ].map((color, index) => (
+                                                <Box
+                                                    key={index}
+                                                    sx={{
+                                                        width: 24,
+                                                        height: 24,
+                                                        borderRadius: "50%",
+                                                        bgcolor: color,
+                                                        border: "1px solid",
+                                                        borderColor: "divider",
+                                                        boxShadow: 1,
+                                                    }}
+                                                />
+                                            ))}
+                                        </Box>
                                     </Stack>
-                                    <Stack spacing={0.5}>
-                                        <Typography variant="subtitle2" fontWeight={600}>
-                                            For the Gentlemen:
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            Suit and tie, or dress shirt with slacks. Sport coats are optional.
-                                        </Typography>
-                                    </Stack>
-                                    <Typography variant="body2" fontStyle="italic" color="text.secondary" textAlign="center">
-                                        Soft pastels, sage green, cream, and earth tones
-                                    </Typography>
-                                </Stack>
-                            </CardContent>
-                        </Card>
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </AnimateOnView>
             </Section>
 

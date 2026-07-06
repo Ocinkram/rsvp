@@ -19,7 +19,8 @@ import {
     createUserLog,
     readResponse,
     readUser,
-    updateResponse
+    updateResponse,
+    updateUser
 } from '../functions';
 import { sectionTitleSx } from './ui/headingStyles';
 import { useParams } from 'react-router-dom';
@@ -70,6 +71,7 @@ export const RSVPForm = () => {
             : await createResponse(payload);
 
         if (res) {
+            updateUser({userId: id})
             setHasPreviousData(true);
             setIsSubmitted(true);
         }

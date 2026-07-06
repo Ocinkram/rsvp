@@ -52,6 +52,13 @@
               "isRequired": true,
               "attributes": []
             },
+            "responded": {
+              "name": "responded",
+              "isArray": false,
+              "type": "Boolean",
+              "isRequired": false,
+              "attributes": []
+            },
             "createdAt": {
               "name": "createdAt",
               "isArray": false,

@@ -19,6 +19,7 @@ import {
     DialogActions,
     Divider,
     Stack,
+    Chip,
 } from "@mui/material";
 
 import LinkIcon from "@mui/icons-material/Link";
@@ -213,7 +214,12 @@ export default function UserList() {
                                 <List disablePadding>
                                     {filteredAndSortedUsers.map((user) => (
                                         <ListItem
-                                            onClick={() => handelGuestResponseModal({ name: user.name, userId: user.id })}
+                                            onClick={() =>
+                                                handelGuestResponseModal({
+                                                    name: user.name,
+                                                    userId: user.id,
+                                                })
+                                            }
                                             key={user.id}
                                             divider
                                             secondaryAction={
@@ -230,9 +236,19 @@ export default function UserList() {
                                         >
                                             <ListItemText
                                                 primary={
-                                                    <Typography fontWeight={500}>
-                                                        {user.name}
-                                                    </Typography>
+                                                    <Box display="flex" alignItems="center" gap={1}>
+                                                        <Typography fontWeight={500}>
+                                                            {user.name}
+                                                        </Typography>
+
+                                                        {user.responded && (
+                                                            <Chip
+                                                                label="Responded"
+                                                                color="success"
+                                                                size="small"
+                                                            />
+                                                        )}
+                                                    </Box>
                                                 }
                                             />
                                         </ListItem>

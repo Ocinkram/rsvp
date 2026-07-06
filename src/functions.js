@@ -8,6 +8,15 @@ export const createUser = async ({ name }) => {
     });
 }
 
+export const updateUser = async ({ userId }) => {
+    const client = generateClient()
+
+    return await client.models.Users.update({
+        id : userId,
+        responded: true,
+    });
+}
+
 export const readUsers = async () => {
     const client = generateClient();
 

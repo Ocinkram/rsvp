@@ -31,13 +31,13 @@ export const FAQSection = () => {
         {
             question: 'When should I RSVP by?',
             answer:
-                'Please RSVP by June 1st, 2026 so we can provide an accurate headcount.',
+                'Please RSVP by August 1st, 2026 so we can provide an accurate headcount.',
         },
-        {
-            question: 'Who can I contact if I have questions?',
-            answer:
-                'Contact our wedding coordinator at emily@weddingplanner.com.',
-        },
+        // {
+        //     question: 'Who can I contact if I have questions?',
+        //     answer:
+        //         'Contact our wedding coordinator at emily@weddingplanner.com.',
+        // },
     ];
 
     return (

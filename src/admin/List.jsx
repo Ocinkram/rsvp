@@ -301,6 +301,10 @@ const GuestLogHistory = ({ guestResponseModal, handelGuestResponseModal }) => {
                     {response ? (
                         <Stack spacing={0.5}>
                             <Typography variant="body2">
+                                <strong>Name:</strong> {response.name}
+                            </Typography>
+
+                            <Typography variant="body2">
                                 <strong>Will Attend:</strong> {response.willAttend ? "Yes" : "No"}
                             </Typography>
 

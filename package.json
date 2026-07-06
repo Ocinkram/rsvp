@@ -17,6 +17,7 @@
     "@fontsource/great-vibes": "^5.2.8",
     "@mui/icons-material": "^7.3.8",
     "@mui/material": "^7.3.8",
+    "@pofsis/eh-cta": "^1.0.1",
     "aws-amplify": "^6.18.0",
     "motion": "^12.34.3",
     "react": "^18.3.1",

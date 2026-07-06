@@ -276,12 +276,16 @@ export const Components = () => {
                                                     </Typography>
 
                                                     <Typography>
-                                                        <strong>Time:</strong> 3:00 PM
+                                                        <strong>Address:</strong> Brgy. Laniwan, Palapag, Northern Samar
                                                     </Typography>
 
                                                     <Typography>
-                                                        <strong>Details:</strong> Dinner, drinks, and dancing
+                                                        <strong>Time:</strong> 3:00 PM
                                                     </Typography>
+
+                                                    {/* <Typography>
+                                                        <strong>Details:</strong> Dinner, drinks, and dancing
+                                                    </Typography> */}
                                                 </Stack>
 
                                                 <Button

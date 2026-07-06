@@ -5,6 +5,7 @@ const schema = a.schema({
     Users: a
         .model({
             name: a.string().required(),
+            responded: a.boolean()
         })
         .authorization((allow) => [allow.guest()]),
 

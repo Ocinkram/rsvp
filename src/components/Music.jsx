@@ -26,7 +26,7 @@ export const MusicWidget = () => {
         }
     };
 
-    return null
+    // return null
 
     return (
         <>

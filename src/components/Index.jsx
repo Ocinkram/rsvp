@@ -11,7 +11,7 @@ import { PhotoGallery } from './PhotoGallery';
 import { FAQSection } from './FAQSection';
 import { ImageWithFallback } from './ImageWithFallback';
 import { Section } from './ui/Section';
-import { SectionHeader } from './ui/SectionHeader';
+import { EntourageSection, SectionHeader } from './ui/SectionHeader';
 import { SubsectionHeader } from './ui/SubsectionHeader';
 import { AnimateOnView, StaggerItem, StaggerOnView } from './ui/AnimateOnView';
 import km11 from '../assets/images/km11.png'
@@ -19,14 +19,16 @@ import km100 from '../assets/images/km100.png'
 import music1 from '../assets/music/music1.mp3'
 import { useParams } from 'react-router-dom';
 import { readUser } from '../functions';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useMediaQuery } from "@mui/material";
+import { MusicWidget } from './Music';
 
 export const Components = () => {
 
     const [invited, setInvited] = useState(false)
     const { id } = useParams();
     const userId = id
+    const audioRef = useRef(null);
 
     const isDesktop = useMediaQuery("(min-width:850px)");
 
@@ -39,7 +41,6 @@ export const Components = () => {
         getUser()
     }, [userId])
 
-
     const weddingDate = new Date('2026-08-12T14:00:00');
 
     const scrollToSection = (sectionId) => {
@@ -47,6 +48,10 @@ export const Components = () => {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    const handlePlayMusic = () => {
+        audioRef.current.play();
     };
 
     const dateSideLabelSx = {
@@ -61,8 +66,12 @@ export const Components = () => {
 
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-
-            {/* <audio src={music1} autoPlay/> */}
+{/* 
+            <Box>
+                <button onClick={handlePlayMusic}>Play Music</button>
+                <audio ref={audioRef} src={music1} loop />
+            </Box> */}
+            <MusicWidget/>
 
             {/* Hero Section */}
             <Box
@@ -272,7 +281,7 @@ export const Components = () => {
 
                                                 <Stack spacing={1} color="text.secondary">
                                                     <Typography>
-                                                        <strong>Venue:</strong> Venus Hotel
+                                                        <strong>Venue:</strong> Venus Function Hall
                                                     </Typography>
 
                                                     <Typography>
@@ -339,11 +348,20 @@ export const Components = () => {
                                 <Card sx={{ p: { xs: 1, sm: 2 } }}>
                                     <CardContent>
                                         <SubsectionHeader title="How We Met" variant="card" align="left" sx={{ mb: 1 }} />
+                                        <Typography color="text.primary" sx={{ lineHeight: 1.8 }} paragraph>
+                                            Some stories begin with love at first sight. Ours began with a simple introduction through a mutual friend.
+                                        </Typography>
+                                        <Typography color="text.primary" sx={{ lineHeight: 1.8 }} paragraph>
+                                            At first, we only talked from time to time. Our conversations were never consistent because life kept us busy with responsibilities and personal priorities. There were moments of silence, followed by unexpected messages, but somehow, we always found our way back to each other.
+                                        </Typography>
+                                        <Typography color="text.primary" sx={{ lineHeight: 1.8 }} paragraph>
+                                            Everything changed when I had the chance to visit my hometown for a vacation. What had only existed through occasional chats finally became a real meeting. Seeing each other in person made all the difference. The conversations felt effortless, the laughter came naturally, and every moment together created memories we never expected to make.
+                                        </Typography>
+                                        <Typography color="text.primary" sx={{ lineHeight: 1.8 }} paragraph>
+                                            Looking back, it's amazing how something so ordinary turned into something so meaningful. What started with a mutual friend, a few on-and-off conversations, and one unforgettable vacation became the beginning of a beautiful story.
+                                        </Typography>
                                         <Typography color="text.primary" sx={{ lineHeight: 1.8 }}>
-                                            Our story began on a rainy Tuesday evening at a local coffee shop.
-                                            James was reading a book, and Emma accidentally spilled her latte on his table.
-                                            What could have been an awkward moment turned into hours of conversation and laughter.
-                                            We've been inseparable ever since.
+                                            And from that moment on, the rest was history.
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -366,77 +384,11 @@ export const Components = () => {
                 </Box>
 
                 <PhotoGallery title="Before the “I Do”" />
+            </Section>
 
-                <SectionHeader title="Our Wedding Party" compact sx={{ mt: 4 }} />
-                <StaggerOnView>
-                    <Grid container spacing={4} justifyContent="center">
-                        {/* Bridesmaids */}
-                        <Grid item xs={12} md={6}>
-                            <StaggerItem>
-                                <Card sx={{ height: "100%" }}>
-                                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                                        <SubsectionHeader title="Bridesmaids" variant="card" sx={{ mb: 2 }} />
-                                        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-                                            {[
-                                                "Sarah Mitchell - Maid of Honor",
-                                                "Jessica Chen",
-                                                "Lauren Davis",
-                                                "Rachel Thompson",
-                                            ].map((name, i) => (
-                                                <Box
-                                                    component="li"
-                                                    key={i}
-                                                    sx={{
-                                                        py: 0.8,
-                                                        px: 1,
-                                                        borderRadius: 1,
-                                                        color: "text.primary",
-                                                        "&:hover": { bgcolor: "background.section" },
-                                                    }}
-                                                >
-                                                    {name}
-                                                </Box>
-                                            ))}
-                                        </Box>
-                                    </CardContent>
-                                </Card>
-                            </StaggerItem>
-                        </Grid>
-
-                        {/* Groomsmen */}
-                        <Grid item xs={12} md={6}>
-                            <StaggerItem>
-                                <Card sx={{ height: "100%" }}>
-                                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                                        <SubsectionHeader title="Groomsmen" variant="card" sx={{ mb: 2 }} />
-                                        <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
-                                            {[
-                                                "Michael Anderson - Best Man",
-                                                "David Park",
-                                                "Ryan Williams",
-                                                "Alex Martinez",
-                                            ].map((name, i) => (
-                                                <Box
-                                                    component="li"
-                                                    key={i}
-                                                    sx={{
-                                                        py: 0.8,
-                                                        px: 1,
-                                                        borderRadius: 1,
-                                                        color: "text.primary",
-                                                        "&:hover": { bgcolor: "background.section" },
-                                                    }}
-                                                >
-                                                    {name}
-                                                </Box>
-                                            ))}
-                                        </Box>
-                                    </CardContent>
-                                </Card>
-                            </StaggerItem>
-                        </Grid>
-                    </Grid>
-                </StaggerOnView>
+            {/* Entourage */}
+            <Section id="entourage" tone={invited ? 'default' : 'paper'}>
+                <EntourageSection />
             </Section>
 
             {/* Dress Code & Registry */}

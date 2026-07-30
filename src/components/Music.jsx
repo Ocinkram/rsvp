@@ -3,6 +3,7 @@ import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PauseIcon from "@mui/icons-material/Pause";
 import { useRef, useState } from "react";
 import music1 from '../assets/music/music1.mp3'
+import Paraluman from '../assets/music/Paraluman.mp3'
 
 export const MusicWidget = () => {
     const audioRef = useRef(null);
@@ -31,7 +32,7 @@ export const MusicWidget = () => {
     return (
         <>
             {/* Hidden audio */}
-            <audio ref={audioRef} src={music1} loop />
+            <audio ref={audioRef} src={Paraluman} loop />
 
             {/* Floating Music Button */}
             <Box

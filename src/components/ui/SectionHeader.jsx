@@ -246,15 +246,15 @@ export const EntourageSection = () => (
               <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
                 <EntourageNames
                   names={[
-                    'HON. FLORENCIO FAWA BATULA',
-                    'MRS. MYRNA MANUELO',
-                    'MRS. AMELITA',
+                    'HON. FLORENCIO "FAWA" BATULA',
+                    'MRS. MYRNA MAJUELO',
+                    'MRS. AMELITA HERMIAS',
                     'MRS. ROSALINDA QUIBAL',
                     'MRS. NELITA BOJANGIN',
                     'MRS. LOURDES PORTE',
                     'MRS. EMELIA CHARLES',
                     'MRS. FLOR BAYON',
-                    'MRS. VANESESA YOPO',
+                    'MRS. VANESSA YOPO',
                     'MRS. LOLITH PENASBO',
                   ]}
                 />
@@ -312,7 +312,7 @@ export const EntourageSection = () => (
                   'CHRISTIAN LUCKY MAGAYES',
                   'ROMMEL MAGAYES',
                   'MARKHIL ADA',
-                  'ALLAN NAMONCALE',
+                  'KHEN MONTIBON',
                   'AEJHAY MACALLAN',
                   'PAULJOHN DULA',
                   'JOHN ARCEL LEANDA',
@@ -326,29 +326,30 @@ export const EntourageSection = () => (
                 names={[
                   'ANGELA GETALADO',
                   'CZIESHA ANEX TIM CALOT',
-                  'ANGEL SAY',
+                  'RODELYN ANGEL SAY',
                   'ROSENDA HABANA',
                   'MARY GRACE AMORES',
                   'JEA BALDELOBAR',
                   'MARIA VANESSA CALOT',
                   'ANA YHAME NAMONCALE',
                   'MARY ANN ABOBO',
-                  'MARIE FIEL ADA',
+                  'VIELA FRANCELLE MARIE NUEVA',
                   'ANTHONETTE MACALLAN',
-                  'JULIAN YOPO',
+                  'QUIA JULLIANE YOPO',
                 ]}
               />
             </Grid>
           </Grid>
         </EntourageGroup>
 
+
         <EntourageGroup sx={entourageBlockSx}>
           <Grid container spacing={{ xs: 4, md: 6 }} sx={entourageGridSx}>
             <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
-              <EntourageRole title="Ring Bearer" names={['TRISTAN DRIE ADA CALOT']} />
+              <EntourageRole title="Ring Bearer" names={['LUKE HEINRICH ABANES']} />
             </Grid>
             <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
-              <EntourageRole title="Coin Bearer" names={['LUKE HEINRICH ABANES']} />
+              <EntourageRole title="Coin Bearer" names={['CARL JAY ADA']} />
             </Grid>
           </Grid>
         </EntourageGroup>
@@ -357,18 +358,18 @@ export const EntourageSection = () => (
           <EntourageRole title="Bible Bearer" names={['RYLANDRIEN MOHR MARIÑAS']} />
         </EntourageGroup>
 
-        <EntourageGroup>
+        <EntourageGroup sx={entourageBlockSx}>
           <Stack alignItems="center" spacing={2} sx={{ width: '100%' }}>
             <Typography sx={entourageScriptSx}>Flower Girls</Typography>
             <Grid container spacing={{ xs: 3, md: 6 }} sx={entourageGridSx}>
               <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
                 <EntourageNames
                   names={[
-                    'ARTEMIS LILY MONTIBON',
                     'ATHALIAH BELLA ABANES',
                     'SAMANTHA MACALLAN',
-                    'AMBER',
-                    'JHIANNA QUINNR GETALADO',
+                    'HILLARY AMBER EVALLE',
+                    'JHIANNA QUINN GETALADO',
+                    'AICEL JOY LEANDA',
                   ]}
                 />
               </Grid>
@@ -385,6 +386,18 @@ export const EntourageSection = () => (
             </Grid>
           </Stack>
         </EntourageGroup>
+
+        <EntourageGroup>
+          <Grid container spacing={{ xs: 4, md: 6 }} sx={entourageGridSx}>
+            <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
+              <EntourageRole title="Little Groom" names={['TRISTAN DRIE ADA CALOT']} />
+            </Grid>
+            <Grid item xs={12} sm={6} sx={entourageGridItemSx}>
+              <EntourageRole title="Little Bride" names={['ARTEMIS LILY MONTIBON']} />
+            </Grid>
+          </Grid>
+        </EntourageGroup>
+
       </EntouragePage>
     </StaggerOnView>
   </>

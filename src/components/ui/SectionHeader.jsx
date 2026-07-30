@@ -102,6 +102,7 @@ const entourageScriptSx = {
 
 const entourageLabelSx = {
   ...sectionTaglineSx,
+  fontWeight: 700,
   textAlign: 'center',
   mb: { xs: 1.5, md: 2 },
 };
@@ -223,7 +224,7 @@ export const EntourageSection = () => (
         <EntourageGroup sx={entourageBlockSx}>
           <Stack alignItems="center" spacing={2}>
             <Typography sx={entourageScriptSx}>Principal Sponsors</Typography>
-            <Typography sx={{ ...sectionTaglineSx, textAlign: 'center', maxWidth: 480 }}>
+            <Typography sx={{ ...sectionTaglineSx, fontWeight: 700, textAlign: 'center', maxWidth: 480 }}>
               To Stand as Principal Witness in Our Exchange of Vows
             </Typography>
             <Grid container spacing={{ xs: 3, md: 6 }} sx={{ ...entourageGridSx, mt: { xs: 1, md: 2 } }}>

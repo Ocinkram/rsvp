@@ -1,13 +1,49 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PauseIcon from "@mui/icons-material/Pause";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import music1 from '../assets/music/music1.mp3'
 import Paraluman from '../assets/music/Paraluman.mp3'
 
 export const MusicWidget = () => {
     const audioRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const hasAutoStartedRef = useRef(false);
+
+    const playMusic = useCallback(async () => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        try {
+            await audio.play();
+            setIsPlaying(true);
+        } catch (err) {
+            console.log("Autoplay blocked:", err);
+        }
+    }, []);
+
+    useEffect(() => {
+        const startOnFirstScroll = () => {
+            if (hasAutoStartedRef.current) return;
+
+            const audio = audioRef.current;
+            if (audio && !audio.paused) {
+                hasAutoStartedRef.current = true;
+                window.removeEventListener("scroll", startOnFirstScroll);
+                return;
+            }
+
+            hasAutoStartedRef.current = true;
+            playMusic();
+            window.removeEventListener("scroll", startOnFirstScroll);
+        };
+
+        window.addEventListener("scroll", startOnFirstScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener("scroll", startOnFirstScroll);
+        };
+    }, [playMusic]);
 
     const toggleMusic = async () => {
         const audio = audioRef.current;
@@ -18,12 +54,8 @@ export const MusicWidget = () => {
             audio.pause();
             setIsPlaying(false);
         } else {
-            try {
-                await audio.play();
-                setIsPlaying(true);
-            } catch (err) {
-                console.log("Autoplay blocked:", err);
-            }
+            hasAutoStartedRef.current = true;
+            await playMusic();
         }
     };
 

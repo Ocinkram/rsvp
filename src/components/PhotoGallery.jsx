@@ -11,9 +11,14 @@ import km7 from '../assets/images/km7.png'
 import km8 from '../assets/images/km8.jpg'
 import km9 from '../assets/images/km9.png'
 
+import km10 from '../assets/images/km10.jpeg'
+import km11 from '../assets/images/km11.jpeg'
+import km12 from '../assets/images/km12.jpeg'
+import km13 from '../assets/images/km13.jpeg'
+
 
 const images = [
-    km1, km2, km3, km4, km5, km6, km7, km8, km9
+     km6, km7, km13, km12, km9, km4,  km10,  km8,km11,
 
 ];
 
